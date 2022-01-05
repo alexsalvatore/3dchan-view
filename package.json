@@ -1,0 +1,11 @@
+{
+  "name": "@asalvatore/dchanview",
+  "version": "1.0.0",
+  "description": "npm \"dview library for 3Dchan",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

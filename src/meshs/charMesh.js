@@ -7,9 +7,9 @@ import {
   } from "babylonjs";
   import {
     BLOCK_SIZE,
-  } from "../GameConstants";
-import EntityMesh from "./EntityMesh";
-import { facePoint, } from '../../utils/Helpers';
+  } from "../constants";
+import EntityMesh from "./entityMesh";
+import { facePoint, } from '../utils/helpers';
 
 export default class CharMesh extends EntityMesh{
 

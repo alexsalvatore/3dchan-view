@@ -1,11 +1,22 @@
 {
   "name": "@asalvatore/dchanview",
   "version": "1.0.0",
-  "description": "npm \"dview library for 3Dchan",
+  "description": "npm 3Dview library for 3Dchan",
   "main": "index.js",
   "scripts": {
+    "start": "webpack serve --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.2"
+  },
+  "dependencies": {
+    "babylonjs": "^4.2.0",
+    "babylonjs-gui": "^4.2.0"
+  }
 }

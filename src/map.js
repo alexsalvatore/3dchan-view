@@ -13,12 +13,11 @@ import {
   
 } from "babylonjs";
 import * as GUI from 'babylonjs-gui';
-
-import { MapDBService } from "../services/dbService";
-import { BLOCK_SIZE, PLAYER_Y, BLOCK_CATALOG } from "./GameConstants";
-import BlockMesh from "./meshs/BlockMesh";
-import FileMesh from "./meshs/FileMesh";
-import CharMesh from './meshs/CharMesh';
+// import { MapDBService } from "../services/dbService";
+import { BLOCK_SIZE, PLAYER_Y, BLOCK_CATALOG } from "./constants";
+import BlockMesh from "./meshs/blockMesh";
+import FileMesh from "./meshs/fileMesh";
+import CharMesh from './meshs/charMesh';
 
 export default class Map {
   mapWidth = 16;
@@ -45,11 +44,12 @@ export default class Map {
     this.subFolder = subFolder_;
     this.mapId = mapId_;
     this.advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("myUI");
-    this.mapService = MapDBService.getInstance(this.mapId);
-    console.log( this.mapService.db );
+    // this.mapService = MapDBService.getInstance(this.mapId);
+    // console.log( this.mapService.db );
 
     //Construct the scene
-    this.mapService.getAllMap(
+    this.buildMap();
+    /*this.mapService.getAllMap(
       (docs_) => {
         if (docs_.rows.length == 0) {
           this.buildMap();
@@ -123,7 +123,7 @@ export default class Map {
         //nothing, build the map
         this.buildMap();
       }
-    );
+    );*/
 
     //Add wireframe texture
     let matGhost = new StandardMaterial("matGhost_text", this.scene);
@@ -426,7 +426,7 @@ export default class Map {
    * Method to get the first player position (at the middle of the map)
    */
   getPlayerLegacyPosition(cam_) {
-
+    /*
     this.mapService.getPlayer(
       (doc_) => {
         if (!doc_.posx || !doc_.posz) return;
@@ -438,7 +438,7 @@ export default class Map {
       (err_) => {
         console.warn("No legacy position", err_);
       }
-    );
+    );*/
   }
 
   //let boundElevator; //BlockMesh
@@ -479,12 +479,13 @@ export default class Map {
           cam_.position = posInit;
         }
 
+        /*
         this.mapService.setPlayer({
           posx: cam_.position.x,
           posy: cam_.position.y,
           posz: cam_.position.z,
           roty: cam_.rotation.y,
-        });
+        });*/
 
         this.playerLegacyTimer = 0;
       }

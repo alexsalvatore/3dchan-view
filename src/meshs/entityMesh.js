@@ -12,7 +12,7 @@ import {
   import {
     BLOCK_SIZE,
     CANVAS_SCALE,
-  } from "../GameConstants";
+  } from "../constants";
 
 export default class EntityMesh{
 

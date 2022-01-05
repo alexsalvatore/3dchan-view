@@ -23,8 +23,8 @@ import {
   BLOCK_TYPE_WALL,
   BLOCK_TYPE_DOOR,
   BLOCK_TYPE_ELEVATOR,
-} from "../GameConstants";
-import Map from "../Map";
+} from "../constants";
+import Map from "../map";
 //import blockDataInterface from "src/app/models/texture-data.interface";
 
 export default class BlockMesh {

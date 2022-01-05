@@ -13,8 +13,8 @@ import {
   ActionManager,
   ExecuteCodeAction,
 } from "babylonjs";
-import { TEXTURE_GOUND_DEFAULT, TEXTURE_SKYBOX_DEFAULT, BLOCK_SIZE } from './GameConstants'
-import Map from "./Map";
+import { TEXTURE_GOUND_DEFAULT, TEXTURE_SKYBOX_DEFAULT, BLOCK_SIZE } from './constants'
+import Map from "./map";
 
 let camera;
 let ground;

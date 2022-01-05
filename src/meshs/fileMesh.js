@@ -9,9 +9,9 @@ import {
   VideoTexture,
 } from "babylonjs";
 import * as GUI from 'babylonjs-gui';
-import { BLOCK_SIZE, CANVAS_SCALE, TEXTURE_ITEM_DEFAULT, TEXTURE_ITEM_MP3, TEXTURE_ITEM_WEB } from "../GameConstants";
-import { getTypeFromFile } from '../../utils/Helpers';
-import EntityMesh from "./EntityMesh";
+import { BLOCK_SIZE, CANVAS_SCALE, TEXTURE_ITEM_DEFAULT, TEXTURE_ITEM_MP3, TEXTURE_ITEM_WEB } from "../constants";
+import { getTypeFromFile } from '../utils/helpers';
+import EntityMesh from "./entityMesh";
 
 export default class FileMesh  extends EntityMesh{
   size = 1;

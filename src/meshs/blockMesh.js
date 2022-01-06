@@ -19,13 +19,15 @@ import {
   BLOCK_SIZE,
   BLOCK_CATALOG,
   // BLOCK_TEXTURES,
-  TEXTURE_FILE_DEFAULT,
+  // TEXTURE_FILE_DEFAULT,
   BLOCK_TYPE_WALL,
   BLOCK_TYPE_DOOR,
   BLOCK_TYPE_ELEVATOR,
 } from "../constants";
 import Map from "../map";
 //import blockDataInterface from "src/app/models/texture-data.interface";
+
+import { TEXTURE_BLOCK_DEFAULT } from '../textures';
 
 export default class BlockMesh {
   type = 0;
@@ -114,7 +116,7 @@ export default class BlockMesh {
     //https://doc.babylonjs.com/how_to/createbox_per_face_textures_and_colors
     let mat = new StandardMaterial("block", this.mapInstance.scene);
     mat.diffuseTexture = new Texture(
-      this.subFolder + TEXTURE_FILE_DEFAULT,
+      TEXTURE_BLOCK_DEFAULT,
       this.mapInstance.scene,
       true,
       true,

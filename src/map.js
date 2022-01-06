@@ -18,6 +18,7 @@ import { BLOCK_SIZE, PLAYER_Y, BLOCK_CATALOG } from "./constants";
 import BlockMesh from "./meshs/blockMesh";
 import FileMesh from "./meshs/fileMesh";
 import CharMesh from './meshs/charMesh';
+import {TEXTURE_CURSOR, TEXTURE_CURSOR_ITEM} from './textures';
 
 export default class Map {
   mapWidth = 16;
@@ -128,7 +129,7 @@ export default class Map {
     //Add wireframe texture
     let matGhost = new StandardMaterial("matGhost_text", this.scene);
     let textGhost = new Texture(
-      this.subFolder+"/assets/textures/cursor.png",
+      TEXTURE_CURSOR,
       this.scene,
       true,
       true,
@@ -148,7 +149,7 @@ export default class Map {
 
     let matGhostBlue = new StandardMaterial("matGhost_text", this.scene);
     let textGhostBlue = new Texture(
-      this.subFolder+"/assets/textures/cursor_item.png",
+      TEXTURE_CURSOR_ITEM,
       this.scene,
       true,
       true,

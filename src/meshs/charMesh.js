@@ -9,7 +9,9 @@ import {
     BLOCK_SIZE,
   } from "../constants";
 import EntityMesh from "./entityMesh";
-import { facePoint, } from '../utils/helpers';
+import { facePoint } from '../utils/helpers';
+//import { TEXTURE_CHAR } from '../constants';
+import {TEXTURE_SPRITE} from '../textures';
 
 export default class CharMesh extends EntityMesh{
 
@@ -66,7 +68,7 @@ export default class CharMesh extends EntityMesh{
         
         let mat2 = new StandardMaterial("matSprite2", this.mapInstance.scene);
         let textureSprite2  = new Texture(
-              this.mapInstance.subFolder+"/assets/sprites/sprite_test2.png",
+              TEXTURE_SPRITE,
               this.mapInstance.scene,
               false,
               false,
@@ -79,7 +81,7 @@ export default class CharMesh extends EntityMesh{
 
         let mat3 = new StandardMaterial("matSprite2", this.mapInstance.scene);
         let textureSprite3  = new Texture(
-              this.mapInstance.subFolder+"/assets/sprites/sprite_test2.png",
+              TEXTURE_SPRITE,
               this.mapInstance.scene,
               false,
               false,

@@ -13,7 +13,8 @@ import {
   ActionManager,
   ExecuteCodeAction,
 } from "babylonjs";
-import { TEXTURE_GOUND_DEFAULT, TEXTURE_SKYBOX_DEFAULT, BLOCK_SIZE } from './constants'
+import { BLOCK_SIZE } from './constants'
+import { TEXTURE_BLOCK_DEFAULT } from './textures';
 import Map from "./map";
 
 let camera;
@@ -43,7 +44,7 @@ export const onSceneReady = (subFolder_ ,scene, mapId_, subscribeToUIAction_, se
     scene
   );
 
-  subscribeToUIAction_((e_) => {
+  if(subscribeToUIAction_) subscribeToUIAction_((e_) => {
     map.handeUIAction(e_);
   });
 
@@ -73,7 +74,7 @@ export const onSceneReady = (subFolder_ ,scene, mapId_, subscribeToUIAction_, se
 
 //Add sky
 //scene.clearColor = new Color4(132 / 255, 197 / 255, 232 / 255, 1);
-var skybox = MeshBuilder.CreateBox("skyBox", {size: 10000}, scene);
+/*var skybox = MeshBuilder.CreateBox("skyBox", {size: 10000}, scene);
 var skyboxMaterial = new StandardMaterial("skyBox", scene);
 
 skyboxMaterial.backFaceCulling = false;
@@ -82,7 +83,7 @@ skyboxMaterial.reflectionTexture.updateSamplingMode( Texture.NEAREST_NEAREST );
 skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
 skyboxMaterial.diffuseColor = new Color3(0, 0, 0);
 skyboxMaterial.specularColor = new Color3(0, 0, 0);
-skybox.material = skyboxMaterial;
+skybox.material = skyboxMaterial;*/
 
   const groundSize = 100;
   //Add ground
@@ -92,7 +93,7 @@ skybox.material = skyboxMaterial;
 
   let mat = new StandardMaterial("matGround", scene);
   let texture = new Texture(
-    subFolder_+TEXTURE_GOUND_DEFAULT,
+    TEXTURE_BLOCK_DEFAULT,
     scene,
     true,
     true,

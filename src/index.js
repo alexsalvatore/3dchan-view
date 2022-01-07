@@ -1,20 +1,20 @@
 import {
+  Engine,
+  Scene,
   FreeCamera,
   Vector3,
+  Color4,
   Mesh,
   StandardMaterial,
   Texture,
   HemisphericLight,
-  CubeTexture,
-  Color3,
-  MeshBuilder,
   Tools,
   Axis,
   ActionManager,
   ExecuteCodeAction,
 } from "babylonjs";
 import { BLOCK_SIZE } from './constants'
-import { TEXTURE_BLOCK_DEFAULT } from './textures';
+import { TEXTURE_BLOCK_DEFAULT, TEXTURE_GOUND_DEFAULT } from './textures';
 import Map from "./map";
 
 let camera;
@@ -25,6 +25,17 @@ const SPEED = 1;
 const INTERTIA = 0.9;
 const GRAVITY = -0.9;
 const ANGULAR_SENSITIVITY = 0.005;
+
+//Pass just the canvas HTML object to the method and GO!
+export const initCanvas = (canvas, subscribeToUIAction_, sendToUI_) =>{
+  const engine = new Engine(canvas, true, null, false);
+  const scene = new Scene(engine);
+  onSceneReady("",scene, "MapId", subscribeToUIAction_, sendToUI_);
+  // Register a render loop to repeatedly render the scene
+  engine.runRenderLoop( () => {
+      scene.render();
+  });
+}
 
 export const onSceneReady = (subFolder_ ,scene, mapId_, subscribeToUIAction_, sendToUI_) => {
   // We need a scene to create all our geometry and babylonjs items in
@@ -50,7 +61,6 @@ export const onSceneReady = (subFolder_ ,scene, mapId_, subscribeToUIAction_, se
 
   map.handeSendToUI(sendToUI_);
   
-
   camera.attachControl(canvas);
   scene.gravity = new Vector3(0, GRAVITY, 0);
   camera.applyGravity = true;
@@ -73,7 +83,7 @@ export const onSceneReady = (subFolder_ ,scene, mapId_, subscribeToUIAction_, se
   map.addPlayerCollision(camera, scene);
 
 //Add sky
-//scene.clearColor = new Color4(132 / 255, 197 / 255, 232 / 255, 1);
+scene.clearColor = new Color4(132 / 255, 197 / 255, 232 / 255, 1);
 /*var skybox = MeshBuilder.CreateBox("skyBox", {size: 10000}, scene);
 var skyboxMaterial = new StandardMaterial("skyBox", scene);
 
@@ -93,7 +103,7 @@ skybox.material = skyboxMaterial;*/
 
   let mat = new StandardMaterial("matGround", scene);
   let texture = new Texture(
-    TEXTURE_BLOCK_DEFAULT,
+    TEXTURE_GOUND_DEFAULT,
     scene,
     true,
     true,

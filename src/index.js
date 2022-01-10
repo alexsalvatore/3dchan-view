@@ -144,10 +144,10 @@ export default class Motor {
   
     scene_.onBeforeRenderObservable.add(()=>{
       if(inputMap["ArrowLeft"]){
-        camera_.cameraRotation.y -= camera.sensibility;
+        camera_.cameraRotation.y -= camera_.sensibility;
       }  
       if(inputMap["ArrowRight"]){
-        camera_.cameraRotation.y += camera.sensibility;
+        camera_.cameraRotation.y += camera_.sensibility;
       }
     });
   }

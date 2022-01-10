@@ -15,8 +15,6 @@ import {TEXTURE_SPRITE} from '../textures';
 
 export default class CharMesh extends EntityMesh{
 
-    /*width = 52;
-    height = 60;*/
     numSprites = 2;
     currentAnimationStartAt = 0;
     currentSprite = 0;

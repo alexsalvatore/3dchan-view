@@ -1,10 +1,8 @@
-import { Engine, Scene } from "babylonjs";
-import { initCanvas } from './index';
+import Motor from './index';
 
 const canvas = document.getElementById("renderCanvas");
-console.log(canvas);
 
-initCanvas(canvas,
+const motor = new Motor(canvas,
     (dataReceive) => {
         console.log("dataReceive", dataReceive)
     },

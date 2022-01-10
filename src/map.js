@@ -1,14 +1,9 @@
 import {
-  Scene,
   StandardMaterial,
   Mesh,
   MeshBuilder,
   Texture,
   Vector3,
-  Color3,
-  Camera,
-  Ray,
-  Vector2,
   FreeCamera,
   
 } from "babylonjs";
@@ -21,6 +16,7 @@ import CharMesh from './meshs/charMesh';
 import {TEXTURE_CURSOR, TEXTURE_CURSOR_ITEM} from './textures';
 
 export default class Map {
+
   mapWidth = 16;
   mapHeight = 17;
 
@@ -414,6 +410,17 @@ export default class Map {
     for (z = 0; z < this.mapHeight; z++) {
       new BlockMesh( this.subFolder, x, 0, z, this, 0)
     }
+  }
+
+  /**
+   * Add a block
+   * @param {*} x_ X of the block
+   * @param {*} y_ Y " " "
+   * @param {*} z_ Z " " "
+   * @param {*} type_ type of the texture of the block
+   */
+  addBlock(x_, y_, z_, type_){
+    new BlockMesh( this.subFolder, x_, y_,  z_, this, type_)
   }
 
   getPlayerFirstPosition() {

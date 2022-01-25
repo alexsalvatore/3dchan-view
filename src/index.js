@@ -152,6 +152,27 @@ export default class Motor {
     });
   }
 
+  /**
+   * Create a block on the map
+   * @param {*} posx_ 
+   * @param {*} posy_ 
+   * @param {*} posz_ 
+   * @param {*} type_ 
+   */
+  addBlock(posx_, posy_, posz_, type_){
+     return this.map.addBlock(posx_, posy_, posz_, type_)
+  }
+
+  /**
+   * Generate a file on the map
+   * @param {*} fileMeshData_ {fileData, fileType, fileName, description }
+   * @param {*} options_ 
+   * @returns Instance of the file mesh
+   */
+   addFile(fileMeshData_, options_){
+    return this.map.addFile( fileMeshData_, this, options_)
+  }
+
   /*
   addNewInputToCamera( camera_, canvas ){
 

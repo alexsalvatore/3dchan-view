@@ -45,7 +45,7 @@ export default class Map {
     // console.log( this.mapService.db );
 
     //Construct the scene
-    this.buildMap();
+    // this.buildMap();
     /*this.mapService.getAllMap(
       (docs_) => {
         if (docs_.rows.length == 0) {
@@ -418,9 +418,20 @@ export default class Map {
    * @param {*} y_ Y " " "
    * @param {*} z_ Z " " "
    * @param {*} type_ type of the texture of the block
+   * @returns Instance of the block
    */
   addBlock(x_, y_, z_, type_){
-    new BlockMesh( this.subFolder, x_, y_,  z_, this, type_)
+    return new BlockMesh( this.subFolder, x_, y_,  z_, this, type_)
+  }
+
+  /**
+   * Generate a file on the map
+   * @param {*} fileMeshData_ {fileData, fileType, fileName, description }
+   * @param {*} options_ 
+   * @returns Instance of the file mesh
+   */
+  addFile(fileMeshData_, options_){
+    return new FileMesh( this.scene, fileMeshData_, this, options_)
   }
 
   getPlayerFirstPosition() {

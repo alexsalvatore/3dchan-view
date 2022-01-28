@@ -25,13 +25,14 @@ for (y; y < 5; y++) {
 }
 
 let fileMesh1 = motor.addFile({
-    fileData: "https://pbs.twimg.com/media/FJcg7UkXEAEcGHJ?format=jpg&name=900x900",
+    fileData: "https://pbs.twimg.com/media/FHgP-ARWUAAHi6o?format=jpg&name=small",
     fileType:"image/",
     fileName:"some file"
 });
 fileMesh1.setToGround({x: 1, y:0, z:5});
+
 let fileMesh2 = motor.addFile({
-    fileData: "https://pbs.twimg.com/media/FJT2B83XoAQJXGH?format=jpg&name=small",
+    fileData: "https://pbs.twimg.com/media/EuCVKgZWQAMuW-Q?format=jpg&name=medium",
     fileType:"image/",
     fileName:"some file"
 });

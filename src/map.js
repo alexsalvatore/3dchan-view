@@ -9,7 +9,7 @@ import {
 } from "babylonjs";
 import * as GUI from 'babylonjs-gui';
 // import { MapDBService } from "../services/dbService";
-import { BLOCK_SIZE, PLAYER_Y, BLOCK_CATALOG } from "./constants";
+import { PLAYER_Y, BLOCK_SIZE } from "./constants";
 import BlockMesh from "./meshs/blockMesh";
 import FileMesh from "./meshs/fileMesh";
 import CharMesh from './meshs/charMesh';

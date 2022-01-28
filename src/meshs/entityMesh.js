@@ -1,12 +1,5 @@
 import {
-    Scene,
-    StandardMaterial,
-    Mesh,
-    MeshBuilder,
-    Texture,
     Vector3,
-    Animation,
-    VideoTexture,
   } from "babylonjs";
 
   import {

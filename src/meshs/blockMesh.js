@@ -122,6 +122,7 @@ export default class BlockMesh {
       true,
       Texture.NEAREST_NEAREST
     );
+    mat.wireframe = true;
     let columns = 6; // 24 columns
     let rows = 6; // 87 rows
     let faceUV = new Array(6);
@@ -191,6 +192,7 @@ export default class BlockMesh {
     this.mesh.position.z = this.position.z;
     this.mesh.position.y = this.position.y;
     this.mesh.scaling = new Vector3(1, 1, 1);
+  
 
     if (this.typeName !== BLOCK_TYPE_WALL) {
       this.mesh.actionManager = new ActionManager(this.mapInstance.scene);

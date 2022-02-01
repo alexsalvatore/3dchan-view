@@ -90,7 +90,7 @@ export default class FileMesh  extends EntityMesh{
       rectLabel.height = "40px";
       rectLabel.color = "#dcdcdc";
       rectLabel.fontFamily = "pixelmix";
-      this.mapInstance.advancedTexture.addControl(rectLabel);
+      //this.mapInstance.advancedTexture.addControl(rectLabel);
 
       var label = new GUI.TextBlock();
       label.text = this.fileName;
@@ -205,16 +205,16 @@ export default class FileMesh  extends EntityMesh{
     this.fileData = data_.fileData;
     this.fileType = data_.fileType;
     this.fileName = data_.fileName;
-    this.mapInstance.mapService.saveCanvas({
+    /*this.mapInstance.mapService.saveCanvas({
       name: this.name,
       fileData: this.fileData,
       fileType: this.fileType,
       fileName: this.fileName,
-    });
+    });*/
   }
 
   save(){
-    this.mapInstance.mapService.saveCanvas({
+    /*this.mapInstance.mapService.saveCanvas({
       fileData: this.fileData,
       fileType: this.fileType,
       fileName: this.fileName,
@@ -231,7 +231,7 @@ export default class FileMesh  extends EntityMesh{
       blockz: this.blockz,
       isGrounded: this.isGrounded,
       size: this.size,
-    });
+    });*/
   }
 
   setPickable(val_) {
@@ -257,13 +257,13 @@ export default class FileMesh  extends EntityMesh{
       CANVAS_SCALE * this.size
     );
     //this.mesh.position.y = BLOCK_SIZE * 0.5 * this.size;
-    this.mapInstance.mapService.changeSize(this.mesh.name, this.size);
+    // this.mapInstance.mapService.changeSize(this.mesh.name, this.size);
   }
 
   delete() {
-    this.mapInstance.mapService.deleteBlockOrCanvas(this.name);
+    // this.mapInstance.mapService.deleteBlockOrCanvas(this.name);
     this.mesh.dispose();
-    this.mapInstance.deleteEntityFromDict(this.name);
+    // this.mapInstance.deleteEntityFromDict(this.name);
     delete this;
   }
 }

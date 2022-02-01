@@ -122,7 +122,7 @@ export default class BlockMesh {
       true,
       Texture.NEAREST_NEAREST
     );
-    mat.wireframe = true;
+    // mat.wireframe = true;
     let columns = 6; // 24 columns
     let rows = 6; // 87 rows
     let faceUV = new Array(6);

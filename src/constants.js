@@ -13,10 +13,10 @@ export const BLOCK_CATALOG = [
   { id:4, name: "Grass", type: BLOCK_TYPE_WALL, u: 0, v: 1 },
 ];
 
-export const DIRECTION_NORTH = "north";
-export const DIRECTION_EAST = "east";
-export const DIRECTION_SOUTH = "south";
-export const DIRECTION_WEST = "west";
+export const DIRECTION_NORTH = 0;
+export const DIRECTION_EAST = 1;
+export const DIRECTION_SOUTH = 2;
+export const DIRECTION_WEST = 3;
 
 
 // export const TEXTURE_FILE_DEFAULT = "/assets/textures/block_texture_32_text.png";

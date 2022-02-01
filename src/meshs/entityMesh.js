@@ -5,6 +5,10 @@ import {
   import {
     BLOCK_SIZE,
     CANVAS_SCALE,
+    DIRECTION_NORTH,
+    DIRECTION_EAST,
+    DIRECTION_SOUTH,
+    DIRECTION_WEST
   } from "../constants";
 
 export default class EntityMesh{
@@ -26,10 +30,16 @@ export default class EntityMesh{
     /**
    * Move the canvas to a certain point of a wall
    * @param {Vector3} pos_ position where
-   * @param {BlockMesh} block_ mesh of the wall block
+   * @param {number} dir_ the direction
+   * @param {Vector3} block_ wall block position
    * @param  {boolean} forceMiddle force the picture to be at the middle of the wall
    */
-  setToWall(pos_, block_, forceMiddle) {
+  setToWall(pos_, dir_, block_, forceMiddle) {
+
+    if(pos_ === null){
+      pos_ = block_.position
+    }
+
     //Block size after scaling
     let blockRealSize = BLOCK_SIZE;
     //Are we at the top of a block?
@@ -53,11 +63,12 @@ export default class EntityMesh{
     let gap = 0.2; //Gap between the canvas and the block;
 
     if (
-      pos_.z >= dBlock * 0.49 + block_.z &&
+      (pos_.z >= dBlock * 0.49 + block_.z &&
       pos_.x > -wBlock * 0.5 + block_.x &&
-      pos_.x < wBlock * 0.5 + block_.x
+      pos_.x < wBlock * 0.5 + block_.x) || dir_ == DIRECTION_NORTH
     ) {
       //N
+      pos_.z = dBlock * 0.5 + block_.z;
       pos_.z += gap;
       if (forceMiddle) {
         pos_.x = block_.x;
@@ -66,11 +77,12 @@ export default class EntityMesh{
       this.mesh.rotation.y = 180 * (Math.PI / 180);
       //console.log("N");
     } else if (
-      pos_.x >= wBlock * 0.49 + block_.x &&
+      (pos_.x >= wBlock * 0.49 + block_.x &&
       pos_.z > -dBlock * 0.5 + block_.z &&
-      pos_.z < dBlock * 0.5 + block_.z
+      pos_.z < dBlock * 0.5 + block_.z) || dir_ == DIRECTION_EAST
     ) {
       //E
+      pos_.x = wBlock * 0.5 + block_.x;
       pos_.x += gap;
       if (forceMiddle) {
         pos_.z = block_.z;
@@ -79,11 +91,12 @@ export default class EntityMesh{
       this.mesh.rotation.y = 270 * (Math.PI / 180);
       //console.log("E");
     } else if (
-      pos_.z <= -dBlock * 0.49 + block_.z &&
+      (pos_.z <= -dBlock * 0.49 + block_.z &&
       pos_.x > -wBlock * 0.5 + block_.x &&
-      pos_.x < wBlock * 0.5 + block_.x
+      pos_.x < wBlock * 0.5 + block_.x)  || dir_ == DIRECTION_SOUTH
     ) {
       //S
+      pos_.z = -dBlock * 0.5 + block_.z
       pos_.z -= gap;
       if (forceMiddle) {
         pos_.x = block_.x;
@@ -93,11 +106,12 @@ export default class EntityMesh{
       this.mesh.rotation.y = 0;
       //console.log("S");
     } else if (
-      pos_.x <= -wBlock * 0.49 + block_.x &&
+      (pos_.x <= -wBlock * 0.49 + block_.x &&
       pos_.z > -dBlock * 0.5 + block_.z &&
-      pos_.z < dBlock * 0.5 + block_.z
+      pos_.z < dBlock * 0.5 + block_.z) || dir_ == DIRECTION_WEST
     ) {
       //W
+      pos_.x = -wBlock * 0.5 + block_.x
       pos_.x -= gap;
       if (forceMiddle) {
         pos_.z = block_.z;

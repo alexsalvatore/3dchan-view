@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "babylonjs": "^4.2.0",
-    "babylonjs-gui": "^4.2.0"
+    "babylonjs-gui": "^4.2.0",
+    "perlin-noise-3d": "^0.5.4",
+    "random-dungeon-generator": "^1.0.32"
   }
 }

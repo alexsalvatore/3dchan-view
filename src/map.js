@@ -412,6 +412,7 @@ export default class Map {
     }
   }
 
+
   /**
    * Add a block
    * @param {*} x_ X of the block
@@ -421,6 +422,9 @@ export default class Map {
    * @returns Instance of the block
    */
   addBlock(x_, y_, z_, type_){
+    const block = new BlockMesh( this.subFolder, x_, y_,  z_, this, type_)
+     // We keep the first block to clone it
+    if(!this.firstBlock) this.firstBlock = block
     return new BlockMesh( this.subFolder, x_, y_,  z_, this, type_)
   }
 

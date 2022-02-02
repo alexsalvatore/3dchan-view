@@ -5,16 +5,15 @@ import {
     DIRECTION_SOUTH,
     DIRECTION_WEST
   } from "./constants";
-  import NewDungeon from "random-dungeon-generator"
+// import NewDungeon from "random-dungeon-generator"
 import perlinNoise3d from 'perlin-noise-3d'
 
 const createPile = (x,z,n) => {
 
-    if(n == 0) n = 1
-    if(n > 4) n = 4
-
+    // if(n < 1) n = 0
+    console.log(n)
     let lastBlock;
-    for (y = 0; y < n; y++) {
+    for (let y = 0; y < n; y++) {
         lastBlock = motor.addBlock(x, y, z, 0);
     }
     return lastBlock
@@ -23,14 +22,8 @@ const createPile = (x,z,n) => {
 const n = new perlinNoise3d();
     n.noiseSeed(Math.PI);
 
-const dungonWidth = 50;
-const dungonHeight = 50;
-const options = {
-        width: dungonWidth,
-        height: dungonHeight,
-        minRoomSize: 5,
-        maxRoomSize: 20};
-const dungeon = NewDungeon(options);
+const dungonWidth = 24;
+const dungonHeight = 24;
 
 const canvas = document.getElementById("renderCanvas");
 
@@ -42,19 +35,17 @@ const motor = new Motor(canvas,
         console.log("dataToSendMethod", dataToSendMethod)
 })
 
-let x = 0
-let z = 0
+let x = 32
+let z = 32
 let y = 0
 
 let lastBlock;
 for (x; x < dungonWidth; x++) {
-    console.log(dungeon[x]);
     for (z; z < dungonHeight; z++) {
-        console.log(dungeon[x][z]);
-        if(dungeon[x][z] == 1){
-            // lastBlock = motor.addBlock(x, y, z, 0);
-            lastBlock = createPile(x,z,n.get(x/10, z/10)*3)
-        }
+        // console.log(dungeon[x][z]);
+        // if(dungeon[x][z] == 1){
+            lastBlock = createPile(x,z, (n.get(x/10, z/10)*10) - 3 )
+        // }
     }
     z = 0
 }

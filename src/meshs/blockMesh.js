@@ -179,11 +179,17 @@ export default class BlockMesh {
       wrap: true,
     };
 
-    this.mesh = MeshBuilder.CreateBox(
-      this.name,
-      options,
-      this.mapInstance.scene
-    );
+    // Mechnisme de clonage
+    if(this.mapInstance && this.mapInstance.firstBlock != null){
+      this.mesh =this.mapInstance.firstBlock.mesh.clone(this.name)
+    } else {
+      this.mesh = MeshBuilder.CreateBox(
+        this.name,
+        options,
+        this.mapInstance.scene
+      );
+    }
+   
     this.mesh.checkCollisions = true;
     this.mesh.isPickable = true;
 

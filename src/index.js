@@ -17,7 +17,7 @@ import { BLOCK_SIZE } from './constants'
 import { TEXTURE_GOUND_DEFAULT } from './textures';
 import Map from "./map";
 
-const PLAYER_HEIGHT = 4; // The player eyes height
+const PLAYER_HEIGHT = 5; // The player eyes height
 const SPEED = 1;
 const INTERTIA = 0.9;
 const GRAVITY = -0.9;
@@ -158,9 +158,10 @@ export default class Motor {
    * @param {*} posy_ 
    * @param {*} posz_ 
    * @param {*} type_ 
+   * @param {*} parentName_ 
    */
-  addBlock(posx_, posy_, posz_, type_){
-     return this.map.addBlock(posx_, posy_, posz_, type_)
+  addBlock(posx_, posy_, posz_, type_, parentName_){
+    return this.map.addBlock(posx_, posy_, posz_, type_, parentName_)
   }
 
   /**
@@ -170,7 +171,16 @@ export default class Motor {
    * @returns Instance of the file mesh
    */
    addFile(fileMeshData_, options_){
-    return this.map.addFile( fileMeshData_, this, options_)
+    return this.map.addFile( fileMeshData_, options_)
+  }
+
+  /**
+   * Generate a Char on the map
+   * @param {*} data_ {charName, accessory1, accessory2}
+   * @returns Instance of the file mesh
+   */
+   addCharacter(data_){
+    return this.map.addCharacter(data_)
   }
 
   /*

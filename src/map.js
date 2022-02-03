@@ -187,6 +187,7 @@ export default class Map {
           ); //BlockMesh
           this.fileMeshDragging.setToWall(
             pickResult.pickedPoint,
+            null,
             blockMeshPicked.position,
             false,
             true
@@ -338,6 +339,7 @@ export default class Map {
             ); //BlockMesh
             fileMesh.setToWall(
               pickInfo.pickedPoint,
+              null,
               blockMeshPicked.position,
               true,
               true
@@ -419,10 +421,11 @@ export default class Map {
    * @param {*} y_ Y " " "
    * @param {*} z_ Z " " "
    * @param {*} type_ type of the texture of the block
+   * @param {*} parent_ Nom du parent
    * @returns Instance of the block
    */
-  addBlock(x_, y_, z_, type_){
-    const block = new BlockMesh( this.subFolder, x_, y_,  z_, this, type_)
+  addBlock(x_, y_, z_, type_, parentName_){
+    const block = new BlockMesh( this.subFolder, x_, y_,  z_, this, type_, parentName_)
      // We keep the first block to clone it
     if(!this.firstBlock) this.firstBlock = block
     return new BlockMesh( this.subFolder, x_, y_,  z_, this, type_)
@@ -436,6 +439,15 @@ export default class Map {
    */
   addFile(fileMeshData_, options_){
     return new FileMesh( this.scene, fileMeshData_, this, options_)
+  }
+
+  /**
+   * Generate a Char on the map
+   * @param {*} data_ {charName, accessory1, accessory2}
+   * @returns Instance of the file mesh
+   */
+   addCharacter(data_){
+    return new CharMesh(this, data_)
   }
 
   getPlayerFirstPosition() {

@@ -1,29 +1,48 @@
 import Motor from './index';
 import {
-    DIRECTION_NORTH,
-    DIRECTION_EAST,
-    DIRECTION_SOUTH,
-    DIRECTION_WEST
+    BLOCK_SIZE
   } from "./constants";
-// import NewDungeon from "random-dungeon-generator"
-import perlinNoise3d from 'perlin-noise-3d'
 
 const createPile = (x,z,n) => {
-
-    // if(n < 1) n = 0
-    console.log(n)
-    let lastBlock;
+    if(n < 1) return  [];
+    let blocks = [];
+    let blockType = 0
     for (let y = 0; y < n; y++) {
-        lastBlock = motor.addBlock(x, y, z, 0);
+        blocks.push( motor.addBlock(x, y, z, blockType, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
     }
-    return lastBlock
+    return blocks
 }
 
-const n = new perlinNoise3d();
-    n.noiseSeed(Math.PI);
+const dungeonMap = [
+    [1,1,0,1,0,1,1,1,1,1,1,1,1,1,],
+    [1,0,1,0,0,0,0,0,0,0,0,0,0,1,],
+    [1,0,0,0,0,0,0,0,0,0,5,5,0,1,],
+    [1,0,0,0,0,0,0,0,0,0,5,6,0,1,],
+    [0,0,1,1,2,2,3,3,3,0,5,5,0,1,],
+    [1,0,0,0,0,0,3,3,3,0,5,5,0,1,],
+    [0,0,0,0,0,0,0,0,0,1,1,1,1,1,],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
+    [1,1,1,1,0,1,1,1,1,1,1,1,1,1,],
+]
 
-const dungonWidth = 24;
-const dungonHeight = 24;
+const images = [
+    "https://pbs.twimg.com/media/FKXXfqZXoAI8hnt?format=jpg&name=small",
+    "https://pbs.twimg.com/media/FJb6dBqXoAEjGl1?format=jpg&name=small",
+    "https://pbs.twimg.com/media/E1HB3zEWYAQiufM?format=jpg&name=small",
+    "https://pbs.twimg.com/media/Cepl5UwWAAAU5av?format=jpg&name=small",
+    "https://pbs.twimg.com/media/EuCVKgZWQAMuW-Q?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FGoIs-yUUAIvkGC?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FGhWsmwXMAoC0sf?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FGfYiJoVgAIaphP?format=jpg&name=small",
+    "https://pbs.twimg.com/media/FGfQGtqXwAQcfFW?format=jpg&name=small",
+    "https://pbs.twimg.com/media/FGPMRl2UUAAyATC?format=jpg&name=900x900",
+    "https://pbs.twimg.com/media/EKkQZmPVAAAzNEW?format=jpg&name=900x900",
+    "https://pbs.twimg.com/media/FDiL_vSWQAEWPci?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FBbZVF5X0AIP9yk?format=jpg&name=medium",
+]
+
+let blocks = [];
 
 const canvas = document.getElementById("renderCanvas");
 
@@ -35,42 +54,23 @@ const motor = new Motor(canvas,
         console.log("dataToSendMethod", dataToSendMethod)
 })
 
-let x = 32
-let z = 32
-let y = 0
+let x = 0
+let z = 0
 
-let lastBlock;
+const dungonWidth = dungeonMap.length;
+const dungonHeight = dungeonMap[0].length;
+
 for (x; x < dungonWidth; x++) {
     for (z; z < dungonHeight; z++) {
-        // console.log(dungeon[x][z]);
-        // if(dungeon[x][z] == 1){
-            lastBlock = createPile(x,z, (n.get(x/10, z/10)*10) - 3 )
-        // }
+        if(dungeonMap[x][z] !== 0){
+            blocks = [...blocks,...createPile(x,z, dungeonMap[x][z])]
+        } else if(Math.floor(Math.random() * 10) > 7) {
+            motor.addCharacter({name: `ch@r ${x}+${z}`  , posx: x*BLOCK_SIZE ,posy: 0, posz: z*BLOCK_SIZE})
+        }
+      
     }
     z = 0
 }
-
-
-/*
-for (x; x < 5; x++) {
-    motor.addBlock(x, y, z, 0);
-}
-
-for (y; y < 5; y++) {
-    lastBlock = motor.addBlock(x, y, z, 0);
-}*/
-
-/*
-let size = 20;
-let output = [];
-for (let x = 0; x < size; x++) {
-    for (let z = 0; z < size; z++) {
-        // lastBlock = motor.addBlock(x, y, z, 0);
-        lastBlock = createPile(x,z, n.get(x/10, z/10)*10)
-        // output.push({ x:x, y:y, value: n.get(x/10, y/10)});
-    }
-}
-console.table(output);*/
 
 let fileMesh1 = motor.addFile({
     fileData: "https://pbs.twimg.com/media/Dl8jZ-pVAAA8P8f?format=jpg&name=900x900",
@@ -79,14 +79,15 @@ let fileMesh1 = motor.addFile({
 });
 fileMesh1.setToGround({x: 1, y:0, z:5});
 
-let fileMesh2 = motor.addFile({
-    fileData: "https://pbs.twimg.com/media/FJlTstCUYAAECME?format=jpg&name=small",
-    fileType:"image/",
-    fileName:"some file"
-});
-
-if(lastBlock != null){
-    fileMesh2.setToWall(lastBlock.position, DIRECTION_WEST ,lastBlock.position)
-    fileMesh2.upSize()
-    fileMesh2.upSize()
+for(let i = 0; i < images.length; i++){
+    const numBlock = Math.floor(Math.random() * (blocks.length-1) )
+    const dir = Math.floor(Math.random() * 3 )
+    const block = blocks[numBlock]
+    const fileMesh2 = motor.addFile({
+        fileData: images[i],
+        fileType:"image/",
+        fileName:"some file"
+    });
+    fileMesh2.setToWall(block.position, dir, block.position);
 }
+

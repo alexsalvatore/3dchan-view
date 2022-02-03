@@ -79,11 +79,9 @@ export default class BlockMesh {
     if (parentName_ != undefined) {
       this.parentBlock = this.mapInstance.getEnityFromDict(parentName_);
       if (this.parentBlock == undefined || parentName_ == this.name) {
-        //console.error("parent not found for " + parentName_);
         this.parentBlock = null;
         parentName_ = null;
       } else {
-        //console.log("Parent found!!!", this.parentBlock);
         this.parentBlock.topBlock = this;
       }
     }
@@ -180,15 +178,15 @@ export default class BlockMesh {
     };
 
     // Mechnisme de clonage
-    if(this.mapInstance && this.mapInstance.firstBlock != null){
-      this.mesh =this.mapInstance.firstBlock.mesh.clone(this.name)
-    } else {
+    /*if(this.mapInstance && this.mapInstance.firstBlock != null){
+      this.mesh = this.mapInstance.firstBlock.mesh.clone(this.name)
+    } else {*/
       this.mesh = MeshBuilder.CreateBox(
         this.name,
         options,
         this.mapInstance.scene
       );
-    }
+    //}
    
     this.mesh.checkCollisions = true;
     this.mesh.isPickable = true;

@@ -28,7 +28,7 @@ export default class CharMesh extends EntityMesh{
         super();
         this.mapInstance = mapInstance_;
 
-        this.name = (npcData_ != undefined )? npcData_.id :  "char_" + Date.now().toString();
+        this.name = (npcData_ != undefined &&  npcData_.id != undefined)? npcData_.id :  "char_" + Date.now().toString();
         this.charName = ( npcData_ && npcData_.charName )? npcData_.charName : null;
         this.accessory1 = (npcData_ != undefined )? npcData_.accessory1 : null;
         this.accessory2 = (npcData_ != undefined )? npcData_.accessory2 : null;
@@ -52,7 +52,7 @@ export default class CharMesh extends EntityMesh{
 
         let mat = new StandardMaterial("matSprite", this.mapInstance.scene);
         let textureSprite  = new Texture(
-            this.mapInstance.subFolder+"/assets/sprites/sprite_test2.png",
+            TEXTURE_SPRITE,
             this.mapInstance.scene,
             false,
             false,
@@ -125,7 +125,7 @@ export default class CharMesh extends EntityMesh{
         this.meshSprite2.parent = this.mesh;
         this.meshSprite2.material.zOffset = 0;
         this.meshSprite2.scaling.x =-1;
-        if(this.accessory1  === null){
+        if(this.accessory1  == null){
           this.meshSprite2.isVisible = false;
         }
 
@@ -133,7 +133,7 @@ export default class CharMesh extends EntityMesh{
         this.meshSprite3.parent = this.mesh;
         this.meshSprite3.material.zOffset = 0;
         this.meshSprite3.scaling.x =-1;
-        if( this.accessory2 === null){
+        if( this.accessory2 == null){
           this.meshSprite3.isVisible = false;
         }
 

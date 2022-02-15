@@ -3,36 +3,12 @@ import {
     BLOCK_SIZE
   } from "./constants";
 
-const createPile = (x,z,n) => {
-    if(n < 1) return  [];
-    let blocks = [];
-    let blockType = 3
-    for (let y = 0; y < n; y++) {
-        blocks.push( motor.addBlock(x, y, z, blockType, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
-        console.log("created a BLOCK "+blocks.length);
-    }
-    return blocks
-}
 
-/*
-const dungeonMap = [
-    [1,1,0,1,0,1,1,1,1,1,1,1,1,1,],
-    [1,0,1,0,0,0,0,0,0,0,0,0,0,1,],
-    [1,0,0,0,0,0,0,0,0,0,5,5,0,1,],
-    [1,0,0,0,0,0,0,0,0,0,5,6,0,1,],
-    [0,0,1,1,2,2,3,3,3,0,5,5,0,1,],
-    [1,0,0,0,0,0,3,3,3,0,5,5,0,1,],
-    [0,0,0,0,0,0,0,0,0,1,1,1,1,1,],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
-    [1,1,1,1,0,1,1,1,1,1,1,1,1,1,],
-]*/
+const ELEVATOR_TYPE = 3;
+const WALL_TYPE = 1;
 
-const dungeonMap = [
-    [0,0,0],
-    [0,2,0],
-    [0,0,0],
-]
+const strats = []
+const stratsRoom = []
 
 const images = [
     "https://pbs.twimg.com/media/FKXXfqZXoAI8hnt?format=jpg&name=small",
@@ -49,6 +25,87 @@ const images = [
     "https://pbs.twimg.com/media/FDiL_vSWQAEWPci?format=jpg&name=medium",
     "https://pbs.twimg.com/media/FBbZVF5X0AIP9yk?format=jpg&name=medium",
 ]
+
+const dungeonMap = [
+    [1,1,0,1,0,1,1,1,1,1,1,1,1,1,],
+    [1,0,1,0,0,0,0,0,0,0,0,0,0,1,],
+    [1,0,0,0,0,0,0,0,0,0,5,5,0,1,],
+    [1,0,0,2,2,2,3,3,3,0,5,9,0,1,],
+    [0,0,1,1,2,2,3,3,3,0,5,5,0,1,],
+    [1,0,0,2,2,2,3,9,3,0,5,5,0,1,],
+    [0,0,0,2,2,2,2,0,1,1,1,1,1,1,],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
+    [1,1,1,1,9,1,1,1,1,1,1,1,1,1,],
+]
+
+const getValueForXZ = (x, z) =>{
+    if( dungeonMap[x] != undefined &&  dungeonMap[x][z] != undefined) return dungeonMap[x][z]
+    return 0;
+}
+
+const getMinAndMaxHeightAroundPoint = (x, z) =>{
+    var max = 0;
+    var min = 0;
+
+    var pointToTest = getValueForXZ(x+1, z);
+    console.log("getValueForXZ(x+1, z)", pointToTest);
+    max = pointToTest;
+    min = pointToTest;
+
+    pointToTest = getValueForXZ(x+1, z+1);
+    console.log("getValueForXZ(x+1, z)", pointToTest);
+    if(pointToTest > max) max = pointToTest
+    if(pointToTest < min) min = pointToTest
+
+    pointToTest = getValueForXZ(x, z+1);
+    console.log("getValueForXZ(x, z+1)", pointToTest);
+    if(pointToTest > max) max = pointToTest
+    if(pointToTest < min) min = pointToTest
+
+    pointToTest = getValueForXZ(x-1, z);
+    console.log("getValueForXZ(x-1, z)", pointToTest);
+    if(pointToTest > max) max = pointToTest
+    if(pointToTest < min) min = pointToTest
+
+    pointToTest = getValueForXZ(x-1, z-1);
+    console.log("getValueForXZ(x-1, z-1)", pointToTest);
+    if(pointToTest > max) max = pointToTest
+    if(pointToTest < min) min = pointToTest
+
+    pointToTest = getValueForXZ(x, z-1);
+    console.log("getValueForXZ(x, z-1)", pointToTest);
+    if(pointToTest > max) max = pointToTest
+    if(pointToTest < min) min = pointToTest
+
+    return [min, max]
+}
+
+
+const createPile = (x,z,n) => {
+    if(n < 1) return  [];
+    let blocks = [];
+
+    let [min, max] = [9,9]
+    if(n == 9){
+        [min, max] = getMinAndMaxHeightAroundPoint(x,z)
+    }
+
+    for (let y = 0; y < n; y++) {
+        if(n == 9){
+            console.log([min, max]);
+            if(y < min){
+                blocks.push( motor.addBlock(x, y, z, WALL_TYPE, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
+            } else if(y >= min && y < max){
+                blocks.push( motor.addBlock(x, y, z, ELEVATOR_TYPE, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
+            }
+        }else {
+            blocks.push( motor.addBlock(x, y, z, WALL_TYPE, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
+        }
+       
+    }
+    return blocks
+}
 
 let blocks = [];
 
@@ -72,7 +129,6 @@ for (x; x < dungonWidth; x++) {
     for (z; z < dungonHeight; z++) {
         if(dungeonMap[x][z] !== 0){
             blocks = [...blocks,...createPile(x,z, dungeonMap[x][z])]
-            console.log("num block after createPile(): "+blocks.length);
         } else if(Math.floor(Math.random() * 10) > 7) {
             motor.addCharacter({name: `ch@r ${x}+${z}`  , posx: x*BLOCK_SIZE ,posy: 0, posz: z*BLOCK_SIZE})
         }

@@ -51,8 +51,6 @@ export default class BlockMesh {
     this.idPosition.x = posx_;
     this.idPosition.y = posy_;
     this.idPosition.z = posz_;
-    console.log(posx_, posy_, posz_);
-    console.log("idPosition", this.idPosition);
 
     //if(blockType_ > 4) blockType_ = 2;
 
@@ -222,7 +220,6 @@ export default class BlockMesh {
     let parent = this.getFirstParentOfSameType();
     if (parent != undefined) {
       let topBlocks = parent.getTopBlocks();
-      console.log("num top blocks", topBlocks);
       numTOpBlock = topBlocks.length - 1;
       parent.animateDoor(numTOpBlock);
     }
@@ -239,14 +236,11 @@ export default class BlockMesh {
       this.typeName === BLOCK_TYPE_ELEVATOR &&
       type !== BLOCK_TYPE_ELEVATOR
     ) {
-      console.log(this.typeName);
-      console.log(type);
       console.warn("cannot build another block on the to of an elevator");
       return null;
     }
 
     let lastBlock = this.getTopBlock(); //BlockMesh
-    console.log("lastBlock", lastBlock);
     let newBlock = new BlockMesh(
       this.subFolder,
       lastBlock.idPosition.x,

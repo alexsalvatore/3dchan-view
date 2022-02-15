@@ -13,11 +13,11 @@ import {
   Tools,
   Axis,
 } from "babylonjs";
-import { BLOCK_SIZE } from './constants'
+import { PLAYER_Y ,BLOCK_SIZE } from './constants'
 import { TEXTURE_GOUND_DEFAULT } from './textures';
 import Map from "./map";
 
-const PLAYER_HEIGHT = 5; // The player eyes height
+// const PLAYER_HEIGHT = 5; // The player eyes height
 const SPEED = 1;
 const INTERTIA = 0.9;
 const GRAVITY = -0.9;
@@ -67,8 +67,8 @@ export default class Motor {
     this.camera.attachControl(canvas);
   
     this.camera.applyGravity = true;
-    this.camera.ellipsoid = new Vector3(2.5, PLAYER_HEIGHT, 2.5);
-    this.camera.ellipsoidOffset = new Vector3(0, PLAYER_HEIGHT, 0);
+    this.camera.ellipsoid = new Vector3(2.5, PLAYER_Y, 2.5);
+    this.camera.ellipsoidOffset = new Vector3(0, PLAYER_Y, 0);
     this.camera.checkCollisions = true;
     this.camera.sensibility = ANGULAR_SENSITIVITY;
     this.camera.speed = SPEED;

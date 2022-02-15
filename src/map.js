@@ -510,7 +510,7 @@ export default class Map {
           return;
         }
         cam_.position.y =
-          this.boundElevator.mesh.position.y + BLOCK_SIZE * 0.5 + PLAYER_Y;
+          this.boundElevator.mesh.position.y + BLOCK_SIZE * 0.5 + PLAYER_Y + PLAYER_Y* 0.25;
       }
 
       this.playerLegacyTimer++;

@@ -425,10 +425,19 @@ export default class Map {
    * @returns Instance of the block
    */
   addBlock(x_, y_, z_, type_, parentName_){
-    const block = new BlockMesh( this.subFolder, x_, y_,  z_, this, type_, parentName_)
+
+    // Important to use topblock
+    if( parentName_ && this.getEnityFromDict(parentName_) != undefined){
+      var parentBlock =  this.getEnityFromDict(parentName_)
+      if(parentBlock == undefined) return;
+      return parentBlock.addTopBlock(type_)
+    }
+
+    const block = new BlockMesh( this.subFolder, x_, y_,  z_, this, type_, parentName_);
      // We keep the first block to clone it
-    if(!this.firstBlock) this.firstBlock = block
-    return new BlockMesh( this.subFolder, x_, y_,  z_, this, type_)
+    if(!this.firstBlock) this.firstBlock = block;
+
+    return block;
   }
 
   /**

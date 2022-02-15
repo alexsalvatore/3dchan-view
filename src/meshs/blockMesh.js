@@ -51,6 +51,8 @@ export default class BlockMesh {
     this.idPosition.x = posx_;
     this.idPosition.y = posy_;
     this.idPosition.z = posz_;
+    console.log(posx_, posy_, posz_);
+    console.log("idPosition", this.idPosition);
 
     //if(blockType_ > 4) blockType_ = 2;
 
@@ -95,8 +97,9 @@ export default class BlockMesh {
         name: this.name,
         parentName: parentName_,
       });
-    this.createMesh();
-    this.mapInstance.addEntityToDict(this);
+
+      this.createMesh();
+      this.mapInstance.addEntityToDict(this);
   }
 
   /**
@@ -243,7 +246,7 @@ export default class BlockMesh {
     }
 
     let lastBlock = this.getTopBlock(); //BlockMesh
-    console.log("addTopBlock(type_) type_",type);
+    console.log("lastBlock", lastBlock);
     let newBlock = new BlockMesh(
       this.subFolder,
       lastBlock.idPosition.x,

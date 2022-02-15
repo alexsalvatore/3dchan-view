@@ -213,7 +213,7 @@ export default class CharMesh extends EntityMesh{
     }
 
     save(){
-      this.mapInstance.mapService.saveNPC({
+      /*this.mapInstance.mapService.saveNPC({
           name: this.name,
           posx: this.pointx,
           posy: this.pointy,
@@ -221,7 +221,7 @@ export default class CharMesh extends EntityMesh{
           rotz: this.rotz,
           accessory1: this.accessory1,
           accessory2: this.accessory2,
-      });
+      });*/
     }
 
       

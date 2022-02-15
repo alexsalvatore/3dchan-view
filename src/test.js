@@ -6,13 +6,15 @@ import {
 const createPile = (x,z,n) => {
     if(n < 1) return  [];
     let blocks = [];
-    let blockType = 0
+    let blockType = 3
     for (let y = 0; y < n; y++) {
         blocks.push( motor.addBlock(x, y, z, blockType, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
+        console.log("created a BLOCK "+blocks.length);
     }
     return blocks
 }
 
+/*
 const dungeonMap = [
     [1,1,0,1,0,1,1,1,1,1,1,1,1,1,],
     [1,0,1,0,0,0,0,0,0,0,0,0,0,1,],
@@ -24,6 +26,12 @@ const dungeonMap = [
     [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
     [1,1,1,1,0,1,1,1,1,1,1,1,1,1,],
+]*/
+
+const dungeonMap = [
+    [0,0,0],
+    [0,2,0],
+    [0,0,0],
 ]
 
 const images = [
@@ -64,10 +72,10 @@ for (x; x < dungonWidth; x++) {
     for (z; z < dungonHeight; z++) {
         if(dungeonMap[x][z] !== 0){
             blocks = [...blocks,...createPile(x,z, dungeonMap[x][z])]
+            console.log("num block after createPile(): "+blocks.length);
         } else if(Math.floor(Math.random() * 10) > 7) {
             motor.addCharacter({name: `ch@r ${x}+${z}`  , posx: x*BLOCK_SIZE ,posy: 0, posz: z*BLOCK_SIZE})
         }
-      
     }
     z = 0
 }
@@ -88,6 +96,8 @@ for(let i = 0; i < images.length; i++){
         fileType:"image/",
         fileName:"some file"
     });
+    
     fileMesh2.setToWall(block.position, dir, block.position);
+    fileMesh2.setSize( block.position.y / BLOCK_SIZE )
 }
 

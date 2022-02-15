@@ -238,6 +238,7 @@ export default class FileMesh  extends EntityMesh{
     this.mesh.isPickable = val_;
   }
 
+  /*
   upSize() {
     this.size *= 3;
     this.setSize();
@@ -248,9 +249,10 @@ export default class FileMesh  extends EntityMesh{
       this.size /= 3;
       this.setSize();
     }
-  }
+  }*/
 
-  setSize() {
+  setSize(size_ = 1) {
+    this.size = size_;
     this.mesh.scaling = new Vector3(
       CANVAS_SCALE * this.size,
       CANVAS_SCALE * this.size,

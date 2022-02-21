@@ -1,5 +1,5 @@
 export const BLOCK_SIZE = 9;
-export const PLAYER_Y = 4;
+export const PLAYER_Y = 5;
 export const CANVAS_SCALE = 0.8;
 
 export const BLOCK_TYPE_WALL = "block_type_wall";

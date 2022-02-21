@@ -2,6 +2,7 @@ import {
   Engine,
   Scene,
   FreeCamera,
+  ArcRotateCamera,
   Vector3,
   Color4,
   Mesh,
@@ -46,16 +47,6 @@ export default class Motor {
 
     //Camera FPS
     this.map = new Map(subFolder_, scene, mapId_);
-    this.camera = new FreeCamera(
-      "freeCamera",
-      //new Vector3(0, 5, 0),
-      new Vector3(
-        this.map.getPlayerFirstPosition().x,
-        5,
-        this.map.getPlayerFirstPosition().z
-      ),
-      scene
-    );
 
     if(subscribeToUIAction_) subscribeToUIAction_((e_) => {
       map.handeUIAction(e_);
@@ -64,32 +55,15 @@ export default class Motor {
     scene.gravity = new Vector3(0, GRAVITY, 0);
     
     this.map.handeSendToUI(sendToUI_);
-    this.camera.attachControl(canvas);
-  
-    this.camera.applyGravity = true;
-    this.camera.ellipsoid = new Vector3(2.5, PLAYER_Y, 2.5);
-    this.camera.ellipsoidOffset = new Vector3(0, PLAYER_Y, 0);
-    this.camera.checkCollisions = true;
-    this.camera.sensibility = ANGULAR_SENSITIVITY;
-    this.camera.speed = SPEED;
-    this.camera.inertia = INTERTIA;
-    //  this.addNewInputToCamera(camera, canvas);
-    this.addRotation(this.camera, scene);
 
-    let handleCameraUpdate = (evt_) => {
-      this.map.updateFrontBlock(this.camera);
-    };
-
-    this.map.getPlayerLegacyPosition(this.camera);
-
-    this.camera.onViewMatrixChangedObservable.add(handleCameraUpdate);
-    this.map.addPlayerCollision(this.camera, scene);
+    // Add FPS CAM
+    //this.addFPSCamera(canvas, scene)
+    this.addArcCamera(canvas, scene)
 
     //Add sky
     scene.clearColor = new Color4(132 / 255, 197 / 255, 232 / 255, 1);
     /*var skybox = MeshBuilder.CreateBox("skyBox", {size: 10000}, scene);
     var skyboxMaterial = new StandardMaterial("skyBox", scene);
-
     skyboxMaterial.backFaceCulling = false;
     skyboxMaterial.reflectionTexture = new CubeTexture(subFolder_+TEXTURE_SKYBOX_DEFAULT, scene);
     skyboxMaterial.reflectionTexture.updateSamplingMode( Texture.NEAREST_NEAREST );
@@ -127,6 +101,41 @@ export default class Motor {
     // Hemispheric light to enlight the scene
     let hLight = new HemisphericLight("hemi", new Vector3(0, 0.5, 0), scene);
     hLight.intensity = 1.35;
+  }
+
+  addArcCamera(canvas, scene){
+    this.camera = new ArcRotateCamera("Camera", 0, 1, 200, new BABYLON.Vector3(10, 0, 10), scene);
+    this.camera.useAutoRotationBehavior = true;
+    this.camera.idleRotationWaitTime = 1;
+  }
+
+  addFPSCamera(canvas, scene){
+    this.camera = new FreeCamera(
+      "freeCamera",
+      //new Vector3(0, 5, 0),
+      new Vector3(
+        this.map.getPlayerFirstPosition().x,
+        5,
+        this.map.getPlayerFirstPosition().z
+      ),
+      scene
+    );
+    this.camera.attachControl(canvas);
+    this.camera.applyGravity = true;
+    this.camera.ellipsoid = new Vector3(2.5, PLAYER_Y, 2.5);
+    this.camera.ellipsoidOffset = new Vector3(0, PLAYER_Y, 0);
+    this.camera.checkCollisions = true;
+    this.camera.sensibility = ANGULAR_SENSITIVITY;
+    this.camera.speed = SPEED;
+    this.camera.inertia = INTERTIA;
+    //  this.addNewInputToCamera(camera, canvas);
+    this.addRotation(this.camera, scene);
+    let handleCameraUpdate = () => {
+      this.map.updateFrontBlock(this.camera);
+    };
+    this.map.getPlayerLegacyPosition(this.camera);
+    this.camera.onViewMatrixChangedObservable.add(handleCameraUpdate);
+    this.map.addPlayerCollision(this.camera, scene);
   }
 
   addRotation(camera_,  scene_){

@@ -3,7 +3,6 @@ import {
     BLOCK_SIZE
   } from "./constants";
 
-const ELEVATOR_TYPE = 3;
 const WALL_TYPE = 1;
 
 const images = [
@@ -35,47 +34,11 @@ const dungeonMap = [
     [1,1,1,1,9,1,1,1,1,1,1,1,1,1,],
 ]
 
-const getValueForXZ = (x, z) =>{
-    if( dungeonMap[x] != undefined &&  dungeonMap[x][z] != undefined) return dungeonMap[x][z]
-    return 0;
-}
-
-const getMinAndMaxHeightAroundPoint = (x, z) =>{
-    var max = 0;
-    var min = 0;
-
-    var pointToTest = getValueForXZ(x+1, z);
-    max = pointToTest;
-    min = pointToTest;
-
-    pointToTest = getValueForXZ(x+1, z+1);
-    if(pointToTest > max) max = pointToTest
-    if(pointToTest < min) min = pointToTest
-
-    pointToTest = getValueForXZ(x, z+1);
-    if(pointToTest > max) max = pointToTest
-    if(pointToTest < min) min = pointToTest
-
-    pointToTest = getValueForXZ(x-1, z);
-    if(pointToTest > max) max = pointToTest
-    if(pointToTest < min) min = pointToTest
-
-    pointToTest = getValueForXZ(x-1, z-1);
-    if(pointToTest > max) max = pointToTest
-    if(pointToTest < min) min = pointToTest
-
-    pointToTest = getValueForXZ(x, z-1);
-    if(pointToTest > max) max = pointToTest
-    if(pointToTest < min) min = pointToTest
-
-    return [min, max]
-}
-
 const createPile = (x,z,n) => {
     if(n < 1) return  [];
     let blocks = [];
     for (let y = 0; y < n; y++) {
-        blocks.push( motor.addBlock(x, y, z, WALL_TYPE, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
+        blocks.push( motor.addBlock({x, y, z}, WALL_TYPE, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
     }
     return blocks
 }
@@ -130,4 +93,17 @@ for(let i = 0; i < images.length; i++){
     fileMesh2.setToWall(block.position, dir, block.position);
     fileMesh2.setSize( block.position.y / BLOCK_SIZE )
 }
+
+// Create controls
+const btnAddBlock = document.getElementById("btnBlock");
+btnAddBlock.addEventListener('click', event => {
+    blocks.push( motor.addBlock(null, WALL_TYPE, null));
+});
+
+
+const btnAddChar = document.getElementById("btnChar");
+const btnAddArt = document.getElementById("btnArt");
+const btnAddDel = document.getElementById("btnDel");
+const inputUrl = document.getElementById("inputURL");
+const btnDel = document.getElementById("btnDel");
 

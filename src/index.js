@@ -174,8 +174,8 @@ export default class Motor {
    * @param {*} type_ 
    * @param {*} parentName_ 
    */
-  addBlock(posx_, posy_, posz_, type_, parentName_){
-    return this.map.addBlock(posx_, posy_, posz_, type_, parentName_)
+  addBlock(position, type_, parentName_){
+    return this.map.addBlock(position, type_, parentName_)
   }
 
   /**

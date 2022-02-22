@@ -424,16 +424,38 @@ export default class Map {
    * @param {*} parent_ Nom du parent
    * @returns Instance of the block
    */
-  addBlock(x_, y_, z_, type_, parentName_){
+  addBlock(position_, type_, parentName_){
+
+    // If no position we took the selected place
+    /*if( this.blockMeshSelected != null){
+      parentName_ = (this.blockMeshSelected != null)? this.blockMeshSelected.name : null;
+      position = (this.selectorMeshGround.position != null)?  this.selectorMeshGround.position : null;
+    } else {
+      position = this.selectorMeshGround.position;
+    }*/
+
+    if(position_ == null && parentName_ == null){
+      if(this.blockMeshSelected != null){
+        parentName_ = this.blockMeshSelected.name
+      } else {
+        // We create a block adding the BLOCKsize + y
+        position_ = {
+          x: this.selectorMeshGround.position.x/BLOCK_SIZE,
+          y: 0,
+          z: this.selectorMeshGround.position.z/BLOCK_SIZE
+        };
+      }
+    }
 
     // Important to use topblock
-    if( parentName_ && this.getEnityFromDict(parentName_) != undefined){
+    if( parentName_ != null && this.getEnityFromDict(parentName_) != undefined){
       var parentBlock =  this.getEnityFromDict(parentName_)
       if(parentBlock == undefined) return;
       return parentBlock.addTopBlock(type_)
     }
 
-    const block = new BlockMesh( this.subFolder, x_, y_,  z_, this, type_, parentName_);
+    const block = new BlockMesh( this.subFolder, position_.x, position_.y,  position_.z, this, type_, parentName_);
+    this.selectItem(block.name)
      // We keep the first block to clone it
     if(!this.firstBlock) this.firstBlock = block;
 

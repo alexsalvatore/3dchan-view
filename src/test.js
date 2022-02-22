@@ -3,12 +3,8 @@ import {
     BLOCK_SIZE
   } from "./constants";
 
-
 const ELEVATOR_TYPE = 3;
 const WALL_TYPE = 1;
-
-const strats = []
-const stratsRoom = []
 
 const images = [
     "https://pbs.twimg.com/media/FKXXfqZXoAI8hnt?format=jpg&name=small",
@@ -49,60 +45,37 @@ const getMinAndMaxHeightAroundPoint = (x, z) =>{
     var min = 0;
 
     var pointToTest = getValueForXZ(x+1, z);
-    console.log("getValueForXZ(x+1, z)", pointToTest);
     max = pointToTest;
     min = pointToTest;
 
     pointToTest = getValueForXZ(x+1, z+1);
-    console.log("getValueForXZ(x+1, z)", pointToTest);
     if(pointToTest > max) max = pointToTest
     if(pointToTest < min) min = pointToTest
 
     pointToTest = getValueForXZ(x, z+1);
-    console.log("getValueForXZ(x, z+1)", pointToTest);
     if(pointToTest > max) max = pointToTest
     if(pointToTest < min) min = pointToTest
 
     pointToTest = getValueForXZ(x-1, z);
-    console.log("getValueForXZ(x-1, z)", pointToTest);
     if(pointToTest > max) max = pointToTest
     if(pointToTest < min) min = pointToTest
 
     pointToTest = getValueForXZ(x-1, z-1);
-    console.log("getValueForXZ(x-1, z-1)", pointToTest);
     if(pointToTest > max) max = pointToTest
     if(pointToTest < min) min = pointToTest
 
     pointToTest = getValueForXZ(x, z-1);
-    console.log("getValueForXZ(x, z-1)", pointToTest);
     if(pointToTest > max) max = pointToTest
     if(pointToTest < min) min = pointToTest
 
     return [min, max]
 }
 
-
 const createPile = (x,z,n) => {
     if(n < 1) return  [];
     let blocks = [];
-
-    let [min, max] = [9,9]
-    if(n == 9){
-        [min, max] = getMinAndMaxHeightAroundPoint(x,z)
-    }
-
     for (let y = 0; y < n; y++) {
-        if(n == 9){
-            console.log([min, max]);
-            if(y < min){
-                blocks.push( motor.addBlock(x, y, z, WALL_TYPE, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
-            } else if(y >= min && y < max){
-                blocks.push( motor.addBlock(x, y, z, ELEVATOR_TYPE, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
-            }
-        }else {
-            blocks.push( motor.addBlock(x, y, z, WALL_TYPE, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
-        }
-       
+        blocks.push( motor.addBlock(x, y, z, WALL_TYPE, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
     }
     return blocks
 }
@@ -110,7 +83,6 @@ const createPile = (x,z,n) => {
 let blocks = [];
 
 const canvas = document.getElementById("renderCanvas");
-
 const motor = new Motor(canvas,
     (dataReceive) => {
         console.log("dataReceive", dataReceive)
@@ -118,6 +90,8 @@ const motor = new Motor(canvas,
     (dataToSendMethod) => {
         console.log("dataToSendMethod", dataToSendMethod)
 })
+
+motor.addFPSCamera()
 
 let x = 0
 let z = 0

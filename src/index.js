@@ -29,18 +29,21 @@ export default class Motor {
   map;
   camera;
   ground;
+  canvas;
+  scene;
 
-  constructor (canvas, subscribeToUIAction_, sendToUI_) {
-    const engine = new Engine(canvas, true, null, false);
-    const scene = new Scene(engine);
-    this.setScene("",scene, "MapId", subscribeToUIAction_, sendToUI_);
+  constructor (canvas_, subscribeToUIAction_, sendToUI_) {
+    this.canvas = canvas_;
+    const engine = new Engine( this.canvas, true, null, false);
+    this.scene = new Scene(engine);
+    this.setScene("",this.scene, "MapId", subscribeToUIAction_, sendToUI_);
     // Register a render loop to repeatedly render the scene
     engine.runRenderLoop( () => {
-        scene.render();
+      this.scene.render();
     });
   }
 
-  setScene(subFolder_ ,scene, mapId_, subscribeToUIAction_, sendToUI_){
+  setScene(subFolder_ , scene, mapId_, subscribeToUIAction_, sendToUI_){
     // We need a scene to create all our geometry and babylonjs items in
     scene.audioEnabled = false;
     const canvas = scene.getEngine().getRenderingCanvas();
@@ -57,8 +60,8 @@ export default class Motor {
     this.map.handeSendToUI(sendToUI_);
 
     // Add FPS CAM
-    //this.addFPSCamera(canvas, scene)
-    this.addArcCamera(canvas, scene)
+    //this.addFPSCamera()
+    this.addArcCamera()
 
     //Add sky
     scene.clearColor = new Color4(132 / 255, 197 / 255, 232 / 255, 1);
@@ -103,13 +106,15 @@ export default class Motor {
     hLight.intensity = 1.35;
   }
 
-  addArcCamera(canvas, scene){
-    this.camera = new ArcRotateCamera("Camera", 0, 1, 200, new BABYLON.Vector3(10, 0, 10), scene);
+  addArcCamera(){
+    if( this.camera != null) this.camera.dispose()
+    this.camera = new ArcRotateCamera("Camera", 0, 1, 200, new BABYLON.Vector3(10, 0, 10), this.scene);
     this.camera.useAutoRotationBehavior = true;
     this.camera.idleRotationWaitTime = 1;
   }
 
-  addFPSCamera(canvas, scene){
+  addFPSCamera(){
+    if( this.camera != null) this.camera.dispose()
     this.camera = new FreeCamera(
       "freeCamera",
       //new Vector3(0, 5, 0),
@@ -118,9 +123,9 @@ export default class Motor {
         5,
         this.map.getPlayerFirstPosition().z
       ),
-      scene
+      this.scene
     );
-    this.camera.attachControl(canvas);
+    this.camera.attachControl(this.canvas);
     this.camera.applyGravity = true;
     this.camera.ellipsoid = new Vector3(2.5, PLAYER_Y, 2.5);
     this.camera.ellipsoidOffset = new Vector3(0, PLAYER_Y, 0);
@@ -129,13 +134,13 @@ export default class Motor {
     this.camera.speed = SPEED;
     this.camera.inertia = INTERTIA;
     //  this.addNewInputToCamera(camera, canvas);
-    this.addRotation(this.camera, scene);
+    this.addRotation(this.camera, this.scene);
     let handleCameraUpdate = () => {
       this.map.updateFrontBlock(this.camera);
     };
     this.map.getPlayerLegacyPosition(this.camera);
     this.camera.onViewMatrixChangedObservable.add(handleCameraUpdate);
-    this.map.addPlayerCollision(this.camera, scene);
+    this.map.addPlayerCollision(this.camera, this.scene);
   }
 
   addRotation(camera_,  scene_){

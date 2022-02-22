@@ -201,16 +201,11 @@ export default class FileMesh  extends EntityMesh{
     );
   }
 
+  
   updateAndSave( data_ ){
     this.fileData = data_.fileData;
     this.fileType = data_.fileType;
     this.fileName = data_.fileName;
-    /*this.mapInstance.mapService.saveCanvas({
-      name: this.name,
-      fileData: this.fileData,
-      fileType: this.fileType,
-      fileName: this.fileName,
-    });*/
   }
 
   save(){

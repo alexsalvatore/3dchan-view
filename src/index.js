@@ -133,7 +133,7 @@ export default class Motor {
     this.camera.sensibility = ANGULAR_SENSITIVITY;
     this.camera.speed = SPEED;
     this.camera.inertia = INTERTIA;
-    //  this.addNewInputToCamera(camera, canvas);
+    this.camera.fov = 1.2;
     this.addRotation(this.camera, this.scene);
     let handleCameraUpdate = () => {
       this.map.updateFrontBlock(this.camera);

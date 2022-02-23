@@ -106,11 +106,18 @@ export default class Motor {
     hLight.intensity = 1.35;
   }
 
+  changeCam(){
+    this.iFPSCam? this.addArcCamera() :  this.addFPSCamera();
+  }
+
   addArcCamera(){
+
     if( this.camera != null) this.camera.dispose()
     this.camera = new ArcRotateCamera("Camera", 0, 1, 200, new BABYLON.Vector3(10, 0, 10), this.scene);
     this.camera.useAutoRotationBehavior = true;
     this.camera.idleRotationWaitTime = 1;
+    this.iFPSCam = false;
+
   }
 
   addFPSCamera(){
@@ -141,6 +148,8 @@ export default class Motor {
     this.map.getPlayerLegacyPosition(this.camera);
     this.camera.onViewMatrixChangedObservable.add(handleCameraUpdate);
     this.map.addPlayerCollision(this.camera, this.scene);
+
+    this.iFPSCam = true;
   }
 
   addRotation(camera_,  scene_){
@@ -195,6 +204,10 @@ export default class Motor {
    */
    addCharacter(data_){
     return this.map.addCharacter(data_)
+  }
+
+  deleteSelection(){
+    this.map.deleteSelection()
   }
 
   /*

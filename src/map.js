@@ -356,7 +356,6 @@ export default class Map {
       case Map.INTERACTION_TYPE_DELETE_BLOCK:
         //pick the selected mesh
         if (this.blockMeshSelected != undefined) {
-          
           this.blockMeshSelected.delete();
           this.blockMeshSelected = null;
         } else if (this.fileMeshSelected != undefined) {
@@ -427,13 +426,6 @@ export default class Map {
   addBlock(position_, type_, parentName_){
 
     // If no position we took the selected place
-    /*if( this.blockMeshSelected != null){
-      parentName_ = (this.blockMeshSelected != null)? this.blockMeshSelected.name : null;
-      position = (this.selectorMeshGround.position != null)?  this.selectorMeshGround.position : null;
-    } else {
-      position = this.selectorMeshGround.position;
-    }*/
-
     if(position_ == null && parentName_ == null){
       if(this.blockMeshSelected != null){
         parentName_ = this.blockMeshSelected.name
@@ -469,7 +461,39 @@ export default class Map {
    * @returns Instance of the file mesh
    */
   addFile(fileMeshData_, options_){
-    return new FileMesh( this.scene, fileMeshData_, this, options_)
+    // return new FileMesh( this.scene, fileMeshData_, this, options_)
+        let fileMesh = new FileMesh(this.scene, fileMeshData_, this, options_);
+
+        let width = this.scene.getEngine().getRenderWidth();
+        let height = this.scene.getEngine().getRenderHeight();
+        let pickInfo = this.scene.pick(
+          width / 2,
+          height / 2,
+          null,
+          false,
+          this.scene.cameras[0]
+        );
+
+        //Test if it's a block
+        if (pickInfo.hit && pickInfo.pickedMesh) {
+          if (pickInfo.pickedMesh.name.indexOf("wall") > -1) {
+            let blockMeshPicked = this.getEnityFromDict(
+              pickInfo.pickedMesh.name
+            ); //BlockMesh
+            fileMesh.setToWall(
+              pickInfo.pickedPoint,
+              null,
+              blockMeshPicked.position,
+              true,
+              true
+            );
+          } else {
+            let posSearch_ = this.searchFreeSpace();
+            fileMesh.setToGround(posSearch_, true);
+          }
+        }
+        this.selectItem(fileMesh.name);
+        return fileMesh;
   }
 
   /**
@@ -479,6 +503,17 @@ export default class Map {
    */
    addCharacter(data_){
     return new CharMesh(this, data_)
+  }
+
+  deleteSelection(){
+     //pick the selected mesh
+     if (this.blockMeshSelected != undefined) {
+      this.blockMeshSelected.delete();
+      this.blockMeshSelected = null;
+    } else if (this.fileMeshSelected != undefined) {
+      this.fileMeshSelected.delete();
+      this.fileMeshSelected = null;
+    }
   }
 
   getPlayerFirstPosition() {

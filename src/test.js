@@ -97,13 +97,29 @@ for(let i = 0; i < images.length; i++){
 // Create controls
 const btnAddBlock = document.getElementById("btnBlock");
 btnAddBlock.addEventListener('click', event => {
-    blocks.push( motor.addBlock(null, WALL_TYPE, null));
+    motor.addBlock(null, WALL_TYPE, null);
 });
 
+const btnDel = document.getElementById("btnDel");
+btnDel.addEventListener('click', event => {
+    motor.deleteSelection()
+});
+
+const btnCam = document.getElementById("btnCam");
+btnCam.addEventListener('click', event => {
+    motor.changeCam()
+});
+
+const btnAddArt = document.getElementById("btnArt");
+btnAddArt.addEventListener('click', event => {
+    const inputUrl = document.getElementById("inputURL");
+    motor.addFile({
+        fileData: inputUrl.value,
+        fileType:"image/",
+        fileName:""
+    });
+});
 
 const btnAddChar = document.getElementById("btnChar");
-const btnAddArt = document.getElementById("btnArt");
-const btnAddDel = document.getElementById("btnDel");
-const inputUrl = document.getElementById("inputURL");
-const btnDel = document.getElementById("btnDel");
+
 

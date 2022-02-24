@@ -36,14 +36,17 @@ export default class EntityMesh{
    */
   setToWall(pos_, dir_, block_, forceMiddle) {
 
-    if(pos_ === null){
+    if(pos_ == undefined){
       pos_ = block_.position
     }
+
+    // set block position in memory
+    let blockPos_ = block_.position
 
     //Block size after scaling
     let blockRealSize = BLOCK_SIZE;
     //Are we at the top of a block?
-    if (pos_.y >= BLOCK_SIZE * 0.49 + block_.y) {
+    if (pos_.y >= BLOCK_SIZE * 0.49 + blockPos_.y) {
       return this.setToGround(pos_);
     }
 
@@ -63,59 +66,59 @@ export default class EntityMesh{
     let gap = 0.2; //Gap between the canvas and the block;
 
     if (
-      (pos_.z >= dBlock * 0.49 + block_.z &&
-      pos_.x > -wBlock * 0.5 + block_.x &&
-      pos_.x < wBlock * 0.5 + block_.x) || dir_ == DIRECTION_NORTH
+      (pos_.z >= dBlock * 0.49 + blockPos_.z &&
+      pos_.x > -wBlock * 0.5 + blockPos_.x &&
+      pos_.x < wBlock * 0.5 + blockPos_.x) || dir_ == DIRECTION_NORTH
     ) {
       //N
-      pos_.z = dBlock * 0.5 + block_.z;
+      pos_.z = dBlock * 0.5 + blockPos_.z;
       pos_.z += gap;
       if (forceMiddle) {
-        pos_.x = block_.x;
-        pos_.y = blockRealSize * 0.5 + (block_.y - BLOCK_SIZE * 0.5); //+ (this.mesh._boundingInfo.minimum.y*0.5);
+        pos_.x = blockPos_.x;
+        pos_.y = blockRealSize * 0.5 + (blockPos_.y - BLOCK_SIZE * 0.5); //+ (this.mesh._boundingInfo.minimum.y*0.5);
       }
       this.mesh.rotation.y = 180 * (Math.PI / 180);
       //console.log("N");
     } else if (
-      (pos_.x >= wBlock * 0.49 + block_.x &&
-      pos_.z > -dBlock * 0.5 + block_.z &&
-      pos_.z < dBlock * 0.5 + block_.z) || dir_ == DIRECTION_EAST
+      (pos_.x >= wBlock * 0.49 + blockPos_.x &&
+      pos_.z > -dBlock * 0.5 + blockPos_.z &&
+      pos_.z < dBlock * 0.5 + blockPos_.z) || dir_ == DIRECTION_EAST
     ) {
       //E
-      pos_.x = wBlock * 0.5 + block_.x;
+      pos_.x = wBlock * 0.5 + blockPos_.x;
       pos_.x += gap;
       if (forceMiddle) {
-        pos_.z = block_.z;
-        pos_.y = blockRealSize * 0.5 + (block_.y - BLOCK_SIZE * 0.5); //+ (this.mesh._boundingInfo.maximum.y*0.5);
+        pos_.z = blockPos_.z;
+        pos_.y = blockRealSize * 0.5 + (blockPos_.y - BLOCK_SIZE * 0.5); //+ (this.mesh._boundingInfo.maximum.y*0.5);
       }
       this.mesh.rotation.y = 270 * (Math.PI / 180);
       //console.log("E");
     } else if (
-      (pos_.z <= -dBlock * 0.49 + block_.z &&
-      pos_.x > -wBlock * 0.5 + block_.x &&
-      pos_.x < wBlock * 0.5 + block_.x)  || dir_ == DIRECTION_SOUTH
+      (pos_.z <= -dBlock * 0.49 + blockPos_.z &&
+      pos_.x > -wBlock * 0.5 + blockPos_.x &&
+      pos_.x < wBlock * 0.5 + blockPos_.x)  || dir_ == DIRECTION_SOUTH
     ) {
       //S
-      pos_.z = -dBlock * 0.5 + block_.z
+      pos_.z = -dBlock * 0.5 + blockPos_.z
       pos_.z -= gap;
       if (forceMiddle) {
-        pos_.x = block_.x;
+        pos_.x = blockPos_.x;
         console.log(this.mesh._boundingInfo);
-        pos_.y = blockRealSize * 0.5 + (block_.y - BLOCK_SIZE * 0.5); //+ (this.mesh._boundingInfo.maximum.y*0.5);
+        pos_.y = blockRealSize * 0.5 + (blockPos_.y - BLOCK_SIZE * 0.5); //+ (this.mesh._boundingInfo.maximum.y*0.5);
       }
       this.mesh.rotation.y = 0;
       //console.log("S");
     } else if (
-      (pos_.x <= -wBlock * 0.49 + block_.x &&
-      pos_.z > -dBlock * 0.5 + block_.z &&
-      pos_.z < dBlock * 0.5 + block_.z) || dir_ == DIRECTION_WEST
+      (pos_.x <= -wBlock * 0.49 + blockPos_.x &&
+      pos_.z > -dBlock * 0.5 + blockPos_.z &&
+      pos_.z < dBlock * 0.5 + blockPos_.z) || dir_ == DIRECTION_WEST
     ) {
       //W
-      pos_.x = -wBlock * 0.5 + block_.x
+      pos_.x = -wBlock * 0.5 + blockPos_.x
       pos_.x -= gap;
       if (forceMiddle) {
-        pos_.z = block_.z;
-        pos_.y = blockRealSize * 0.5 + (block_.y - BLOCK_SIZE * 0.5); // + (this.mesh._boundingInfo.maximum.y*0.5);
+        pos_.z = blockPos_.z;
+        pos_.y = blockRealSize * 0.5 + (blockPos_.y - BLOCK_SIZE * 0.5); // + (this.mesh._boundingInfo.maximum.y*0.5);
       }
       this.mesh.rotation.y = 90 * (Math.PI / 180);
       //console.log("W");
@@ -131,9 +134,9 @@ export default class EntityMesh{
     this.posx = pos_.x;
     this.posy = pos_.y;
     this.posz = pos_.z;
-    this.blockx = block_.x;
-    this.blocky = block_.y;
-    this.blockz = block_.z;
+    this.blockx = blockPos_.x;
+    this.blocky = blockPos_.y;
+    this.blockz = blockPos_.z;
 
   }
 

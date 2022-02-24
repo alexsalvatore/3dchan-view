@@ -188,7 +188,7 @@ export default class Map {
           this.fileMeshDragging.setToWall(
             pickResult.pickedPoint,
             null,
-            blockMeshPicked.position,
+            blockMeshPicked,
             false,
             true
           );
@@ -340,7 +340,7 @@ export default class Map {
             fileMesh.setToWall(
               pickInfo.pickedPoint,
               null,
-              blockMeshPicked.position,
+              blockMeshPicked,
               true,
               true
             );
@@ -483,7 +483,7 @@ export default class Map {
             fileMesh.setToWall(
               pickInfo.pickedPoint,
               null,
-              blockMeshPicked.position,
+              blockMeshPicked,
               true,
               true
             );

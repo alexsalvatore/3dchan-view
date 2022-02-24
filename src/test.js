@@ -90,7 +90,7 @@ for(let i = 0; i < images.length; i++){
         fileName:"some file"
     });
     
-    fileMesh2.setToWall(block.position, dir, block.position);
+    fileMesh2.setToWall(block.position, dir, block);
     fileMesh2.setSize( block.position.y / BLOCK_SIZE )
 }
 

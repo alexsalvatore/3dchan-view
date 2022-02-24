@@ -186,9 +186,10 @@ export default class CharMesh extends EntityMesh{
      */
     setToWall(pos_, dir_, block_, forceMiddle){
       
-
         //Is top block?
-        if (pos_.y >= BLOCK_SIZE * 0.49 + block_.position.y ) {
+        if(pos_ == undefined || block_.getTopBlock == undefined) return
+
+        if (pos_.y >= BLOCK_SIZE * 0.49 + block_.getTopBlock().position.y ) {
           return this.setToGround(pos_);
         }
 

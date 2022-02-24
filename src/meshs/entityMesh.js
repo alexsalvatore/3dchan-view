@@ -168,7 +168,7 @@ export default class EntityMesh{
 
     delete() {
         if(this.mapInstance == undefined) return console.error('EntityMesh as no map instace!');
-        this.mapInstance.mapService.deleteBlockOrCanvas(this.name);
+        // this.mapInstance.mapService.deleteBlockOrCanvas(this.name);
         this.mesh.dispose();
         this.mapInstance.deleteEntityFromDict(this.name);
         delete this;

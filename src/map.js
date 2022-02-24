@@ -502,7 +502,18 @@ export default class Map {
    * @returns Instance of the file mesh
    */
    addCharacter(data_){
-    return new CharMesh(this, data_)
+    const charMesh = new CharMesh(this, data_)
+    if (this.selectorMeshItem && this.selectorMeshItem.visibility > 0) {
+      charMesh.setToGround( {x:this.selectorMeshItem.position.x,
+        y:this.selectorMeshItem.position.y + BLOCK_SIZE *0.5,
+        z:this.selectorMeshItem.position.z}); 
+    } else {
+      charMesh.setToGround( {x:this.selectorMeshGround.position.x,
+      y:0,
+      z:this.selectorMeshGround.position.z}); 
+    }
+    this.selectItem(charMesh.name);
+    return charMesh;
   }
 
   deleteSelection(){

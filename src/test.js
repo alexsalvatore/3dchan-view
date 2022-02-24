@@ -67,7 +67,7 @@ for (x; x < dungonWidth; x++) {
         if(dungeonMap[x][z] !== 0){
             blocks = [...blocks,...createPile(x,z, dungeonMap[x][z])]
         } else if(Math.floor(Math.random() * 10) > 7) {
-            motor.addCharacter({name: `ch@r ${x}+${z}`  , posx: x*BLOCK_SIZE ,posy: 0, posz: z*BLOCK_SIZE})
+            motor.addCharacter({posx: x*BLOCK_SIZE ,posy: 0, posz: z*BLOCK_SIZE})
         }
     }
     z = 0
@@ -121,5 +121,7 @@ btnAddArt.addEventListener('click', event => {
 });
 
 const btnAddChar = document.getElementById("btnChar");
-
+btnAddChar.addEventListener('click', event => {
+    motor.addCharacter({posx: x*BLOCK_SIZE ,posy: 0, posz: z*BLOCK_SIZE})
+});
 

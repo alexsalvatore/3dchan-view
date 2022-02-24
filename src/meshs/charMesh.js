@@ -176,19 +176,30 @@ export default class CharMesh extends EntityMesh{
       facePoint(this.mesh, this.mapInstance.scene.cameras[0].position);
     }
 
-    setToWall(pos_, block_, forceMiddle){
+    /**
+     * 
+     * @param {*} pos_ 
+     * @param {*} dir_ 
+     * @param {*} block_ A Block
+     * @param {*} forceMiddle 
+     * @returns 
+     */
+    setToWall(pos_, dir_, block_, forceMiddle){
+      
+
         //Is top block?
-        if (pos_.y >= BLOCK_SIZE * 0.49 + block_.y) {
+        if (pos_.y >= BLOCK_SIZE * 0.49 + block_.position.y ) {
           return this.setToGround(pos_);
         }
+
     }
     
     updateAndSave( data_ ){
       // save in the DB
-      this.mapInstance.mapService.saveNPC({
+      /*this.mapInstance.mapService.saveNPC({
         ...data_,
         name: this.name,
-      });
+      });*/
 
       //Update acessorries
       this.setAccessory(data_.accessory1, data_.accessory2);

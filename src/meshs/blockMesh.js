@@ -86,7 +86,7 @@ export default class BlockMesh {
       }
     }
 
-    if (this.mapInstance.mapService != undefined)
+    /*if (this.mapInstance.mapService != undefined)
       this.mapInstance.mapService.addBlock({
         posx: posx_,
         posy: posy_,
@@ -94,7 +94,7 @@ export default class BlockMesh {
         type: this.type,
         name: this.name,
         parentName: parentName_,
-      });
+      });*/
 
       this.createMesh();
       this.mapInstance.addEntityToDict(this);
@@ -275,7 +275,7 @@ export default class BlockMesh {
   }
 
   delete() {
-    this.mapInstance.mapService.deleteBlockOrCanvas(this.name);
+    // this.mapInstance.mapService.deleteBlockOrCanvas(this.name);
     this.mapInstance.deleteEntityFromDict(this.name);
     if (
       this.parentBlock != undefined &&

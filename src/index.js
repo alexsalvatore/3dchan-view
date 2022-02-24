@@ -11,8 +11,6 @@ import {
   HemisphericLight,
   ActionManager,
   ExecuteCodeAction,
-  Tools,
-  Axis,
 } from "babylonjs";
 import { PLAYER_Y ,BLOCK_SIZE } from './constants'
 import { TEXTURE_GOUND_DEFAULT } from './textures';
@@ -24,7 +22,7 @@ const INTERTIA = 0.9;
 const GRAVITY = -0.9;
 const ANGULAR_SENSITIVITY = 0.005;
 
-export default class Motor {
+export default class TroisDchan {
   
   map;
   camera;
@@ -116,6 +114,11 @@ export default class Motor {
     this.camera = new ArcRotateCamera("Camera", 0, 1, 200, new BABYLON.Vector3(10, 0, 10), this.scene);
     this.camera.useAutoRotationBehavior = true;
     this.camera.idleRotationWaitTime = 1;
+    this.camera.attachControl(this.canvas);
+    this.camera.checkCollisions = true
+    /*this.camera.upperBetaLimit = 45;
+    this.camera.lowerBetaLimit = 45;*/
+    
     this.iFPSCam = false;
 
   }

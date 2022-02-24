@@ -41,9 +41,8 @@ export default class CharMesh extends EntityMesh{
            this.updateAnimation();
             }, this.intervalTime);
 
-        if(npcData_ != undefined ){
+        if(npcData_ != undefined &&  npcData_.position != undefined){
           this.setToGround({x: npcData_.position.x, y:npcData_.position.y, z:npcData_.position.z});
-          //this.rotate(npcData_.rotz); 
         }
         this.finishInit();
     }

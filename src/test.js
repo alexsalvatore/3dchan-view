@@ -1,4 +1,4 @@
-import Motor from './index';
+import TroisDchan from './index';
 import {
     BLOCK_SIZE
   } from "./constants";
@@ -38,7 +38,7 @@ const createPile = (x,z,n) => {
     if(n < 1) return  [];
     let blocks = [];
     for (let y = 0; y < n; y++) {
-        blocks.push( motor.addBlock({x, y, z}, WALL_TYPE, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
+        blocks.push( troisDchan.addBlock({x, y, z}, WALL_TYPE, blocks.length > 0 ? blocks[blocks.length-1].name : ""));
     }
     return blocks
 }
@@ -46,7 +46,7 @@ const createPile = (x,z,n) => {
 let blocks = [];
 
 const canvas = document.getElementById("renderCanvas");
-const motor = new Motor(canvas,
+const troisDchan = new TroisDchan(canvas,
     (dataReceive) => {
         // console.log("dataReceive", dataReceive)
     },
@@ -54,7 +54,7 @@ const motor = new Motor(canvas,
        // console.log("dataToSendMethod", dataToSendMethod)
 })
 
-motor.addFPSCamera()
+troisDchan.addFPSCamera()
 
 let x = 0
 let z = 0
@@ -67,13 +67,13 @@ for (x; x < dungonWidth; x++) {
         if(dungeonMap[x][z] !== 0){
             blocks = [...blocks,...createPile(x,z, dungeonMap[x][z])]
         } else if(Math.floor(Math.random() * 10) > 7) {
-            motor.addCharacter({ position: {x: x*BLOCK_SIZE , y:0 , z: z*BLOCK_SIZE}})
+            troisDchan.addCharacter({ position: {x: x*BLOCK_SIZE , y:0 , z: z*BLOCK_SIZE}})
         }
     }
     z = 0
 }
 
-let fileMesh1 = motor.addFile({
+let fileMesh1 = troisDchan.addFile({
     fileData: "https://pbs.twimg.com/media/Dl8jZ-pVAAA8P8f?format=jpg&name=900x900",
     fileType:"image/",
     fileName:"some file"
@@ -84,7 +84,7 @@ for(let i = 0; i < images.length; i++){
     const numBlock = Math.floor(Math.random() * (blocks.length-1) )
     const dir = Math.floor(Math.random() * 3 )
     const block = blocks[numBlock]
-    const fileMesh2 = motor.addFile({
+    const fileMesh2 = troisDchan.addFile({
         fileData: images[i],
         fileType:"image/",
         fileName:"some file"
@@ -97,23 +97,23 @@ for(let i = 0; i < images.length; i++){
 // Create controls
 const btnAddBlock = document.getElementById("btnBlock");
 btnAddBlock.addEventListener('click', event => {
-    motor.addBlock(null, WALL_TYPE, null);
+    troisDchan.addBlock(null, WALL_TYPE, null);
 });
 
 const btnDel = document.getElementById("btnDel");
 btnDel.addEventListener('click', event => {
-    motor.deleteSelection()
+    troisDchan.deleteSelection()
 });
 
 const btnCam = document.getElementById("btnCam");
 btnCam.addEventListener('click', event => {
-    motor.changeCam()
+    troisDchan.changeCam()
 });
 
 const btnAddArt = document.getElementById("btnArt");
 btnAddArt.addEventListener('click', event => {
     const inputUrl = document.getElementById("inputURL");
-    motor.addFile({
+    troisDchan.addFile({
         fileData: inputUrl.value,
         fileType:"image/",
         fileName:""
@@ -122,6 +122,6 @@ btnAddArt.addEventListener('click', event => {
 
 const btnAddChar = document.getElementById("btnChar");
 btnAddChar.addEventListener('click', event => {
-    motor.addCharacter({});
+    troisDchan.addCharacter({});
 });
 

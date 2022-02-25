@@ -75,6 +75,8 @@ Add a characters at a position
     troisDchan.addCharacter({ position: {x: x*BLOCK_SIZE , y:0 , z: z*BLOCK_SIZE}})
 ```
 
+You can see more example at the [test.js](https://github.com/salvatoreparis/3dchan-view/blob/main/src/test.js) file at the root of the project
+
 ## Roadmap
 
 - Method to place player (that's dumb bu it doesn't exist)

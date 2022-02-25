@@ -1,7 +1,4 @@
-import TroisDchan from './index';
-import {
-    BLOCK_SIZE
-  } from "./constants";
+import TroisDchan, { BLOCK_SIZE } from './index';
 
 const WALL_TYPE = 1;
 

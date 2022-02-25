@@ -12,7 +12,7 @@ import {
   ActionManager,
   ExecuteCodeAction,
 } from "babylonjs";
-import { PLAYER_Y ,BLOCK_SIZE } from './constants'
+import { PLAYER_Y , BLOCK_SIZE, BLOCK_CATALOG } from './constants'
 import { TEXTURE_GOUND_DEFAULT } from './textures';
 import Map from "./map";
 
@@ -21,6 +21,8 @@ const SPEED = 1;
 const INTERTIA = 0.9;
 const GRAVITY = -0.9;
 const ANGULAR_SENSITIVITY = 0.005;
+
+export { BLOCK_SIZE, BLOCK_CATALOG }
 
 export default class TroisDchan {
   

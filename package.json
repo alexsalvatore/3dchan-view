@@ -1,13 +1,19 @@
 {
-  "name": "@asalvatore/dchanview",
-  "version": "1.0.0",
-  "description": "npm 3Dview library for 3Dchan",
+  "name": "@asalvatore/troisdchan",
+  "version": "0.0.2",
+  "description": "Troisdchan a javascript library to display and manage a 3Dchan's dungeon. The goal of 3Dchan is to provide a 3D abstraction layer for data's, especially images and users, in the web browser. ",
   "main": "index.js",
+  "keywords": [
+    "html5",
+    "3d",
+    "babylonjs"
+  ],
   "scripts": {
     "start": "webpack serve --open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "npm-publish": "npm publish --access public"
   },
-  "author": "",
+  "author": "A. Krunch",
   "license": "ISC",
   "devDependencies": {
     "html-webpack-plugin": "^5.5.0",

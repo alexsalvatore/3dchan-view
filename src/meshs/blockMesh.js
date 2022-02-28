@@ -46,6 +46,7 @@ export default class BlockMesh {
     this.type = 0;
     this.isElevator = false;
     this.blockDataInterface = BLOCK_CATALOG[0];
+    this.doorIsOpen = false;
 
     this.subFolder = subFolder_;
     this.idPosition = Vector3.Zero();
@@ -310,7 +311,6 @@ export default class BlockMesh {
     return this.parentBlock.getFirstParentOfSameType();
   }
 
-  doorIsOpen = false;
 
   /**
    *

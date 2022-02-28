@@ -18,6 +18,17 @@ export const DIRECTION_EAST = 1;
 export const DIRECTION_SOUTH = 2;
 export const DIRECTION_WEST = 3;
 
+export const  INTERACTION_TYPE_ADD_BLOCK = "add_block";
+export const  INTERACTION_TYPE_ADD_CHAR = "add_char";
+export const  INTERACTION_TYPE_DELETE_BLOCK = "delete_block";
+export const  INTERACTION_TYPE_ADD_FILE = "add_file";
+export const  INTERACTION_TYPE_SCALE = "change_scale";
+export const  INTERACTION_TYPE_ROTATE = "change_rotate";
+export const  INTERACTION_TYPE_CHANGE_TEXTURE = "change_texture";
+export const  INTERACTION_TYPE_ACTION = "launch_action";
+export const  INTERACTION_TYPE_UPDATE_OBJECT = "update_object_action";
+
+
 
 // export const TEXTURE_FILE_DEFAULT = "/assets/textures/block_texture_32_text.png";
 // export const TEXTURE_GOUND_DEFAULT = "/assets/textures/ground_96_text.png";

@@ -9,7 +9,16 @@ import {
 } from "babylonjs";
 import * as GUI from 'babylonjs-gui';
 // import { MapDBService } from "../services/dbService";
-import { PLAYER_Y, BLOCK_SIZE } from "./constants";
+import { PLAYER_Y, BLOCK_SIZE, INTERACTION_TYPE_ADD_BLOCK,
+  INTERACTION_TYPE_ADD_CHAR,
+  INTERACTION_TYPE_DELETE_BLOCK,
+  INTERACTION_TYPE_ADD_FILE,
+  INTERACTION_TYPE_SCALE,
+  INTERACTION_TYPE_ROTATE,
+  INTERACTION_TYPE_CHANGE_TEXTURE,
+  INTERACTION_TYPE_ACTION,
+  INTERACTION_TYPE_UPDATE_OBJECT,
+ } from "./constants";
 import BlockMesh from "./meshs/blockMesh";
 import FileMesh from "./meshs/fileMesh";
 import CharMesh from './meshs/charMesh';
@@ -21,21 +30,10 @@ export default class Map {
   mapWidth = 16;
   mapHeight = 17;
   */
-
  
   /*
   fileMeshDict = {};
   blockMeshDict = {};*/
-
-  static INTERACTION_TYPE_ADD_BLOCK = "add_block";
-  static INTERACTION_TYPE_ADD_CHAR = "add_char";
-  static INTERACTION_TYPE_DELETE_BLOCK = "delete_block";
-  static INTERACTION_TYPE_ADD_FILE = "add_file";
-  static INTERACTION_TYPE_SCALE = "change_scale";
-  static INTERACTION_TYPE_ROTATE = "change_rotate";
-  static INTERACTION_TYPE_CHANGE_TEXTURE = "change_texture";
-  static INTERACTION_TYPE_ACTION = "launch_action";
-  static INTERACTION_TYPE_UPDATE_OBJECT = "update_object_action";
 
   constructor(subFolder_, scene_, mapId_) {
     this.scene = scene_;
@@ -46,6 +44,11 @@ export default class Map {
     this.mapHeight = 17;
     this.entityDict = {};
     this.sLoaded = false;
+
+    this.updateFrontBlockTimer = 0;
+    this.UPDATE_FRONT_BLOCK = 30;
+    this.playerLegacyTimer = 0;
+    this.playerLegacyFreq = 550;
     // this.mapService = MapDBService.getInstance(this.mapId);
     // console.log( this.mapService.db );
 
@@ -276,7 +279,7 @@ export default class Map {
   handeUIAction(interaction_) {
     switch (interaction_.action) {
 
-      case Map.INTERACTION_TYPE_ADD_BLOCK:
+      case INTERACTION_TYPE_ADD_BLOCK:
 
         let blockMesh; //BlockMesh
         if (this.blockMeshSelected != undefined) {
@@ -299,7 +302,7 @@ export default class Map {
         }
       break;
 
-      case Map.INTERACTION_TYPE_ADD_CHAR:
+      case INTERACTION_TYPE_ADD_CHAR:
           let  charMesh = new CharMesh( this,);
           //console.log('set char to block', this.selectorMeshItem);
           //console.log('this.selectorMeshGround', this.selectorMeshGround);
@@ -316,11 +319,11 @@ export default class Map {
           charMesh.save();
       break;
 
-      case Map.INTERACTION_TYPE_ACTION:
+      case INTERACTION_TYPE_ACTION:
         if (this.boundElevator) this.boundElevator.launchAction();
         break;
 
-      case Map.INTERACTION_TYPE_ADD_FILE:
+      case INTERACTION_TYPE_ADD_FILE:
         if (interaction_.data == null) return;
         let fileMeshData = interaction_.data; //FileMeshInterface
 
@@ -358,7 +361,7 @@ export default class Map {
         this.selectItem(fileMesh.name);
         break;
 
-      case Map.INTERACTION_TYPE_DELETE_BLOCK:
+      case INTERACTION_TYPE_DELETE_BLOCK:
         //pick the selected mesh
         if (this.blockMeshSelected != undefined) {
           this.blockMeshSelected.delete();
@@ -369,7 +372,7 @@ export default class Map {
         }
         break;
 
-      case Map.INTERACTION_TYPE_SCALE:
+      case INTERACTION_TYPE_SCALE:
         if (this.fileMeshSelected == undefined) return;
         //pick the selected mesh
         if (interaction_.data === "up") {
@@ -381,7 +384,7 @@ export default class Map {
         //}
         break;
 
-        case Map.INTERACTION_TYPE_UPDATE_OBJECT:
+        case INTERACTION_TYPE_UPDATE_OBJECT:
           if (this.fileMeshSelected == undefined) return;
           //pick the selected mesh
           if ( this.fileMeshSelected.updateAndSave != undefined ) {
@@ -564,8 +567,7 @@ export default class Map {
   }
 
   //let boundElevator; //BlockMesh
-  playerLegacyTimer = 0;
-  playerLegacyFreq = 550;
+  
 
   addPlayerCollision(cam_) {
     //FreeCamera
@@ -629,9 +631,6 @@ export default class Map {
   /**
    * Get the block in front of you
    */
-
-  updateFrontBlockTimer = 0;
-  UPDATE_FRONT_BLOCK = 30;
 
   /**
    * @param {FreeCamera} cam_

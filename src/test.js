@@ -42,7 +42,11 @@ const createPile = (x,z,n) => {
 
 let blocks = [];
 
+// Set full screen
 const canvas = document.getElementById("renderCanvas");
+canvas.width  = window.innerWidth;
+canvas.height = window.innerHeight;
+
 const troisDchan = new TroisDchan(canvas,
     (dataReceive) => {
         // console.log("dataReceive", dataReceive)

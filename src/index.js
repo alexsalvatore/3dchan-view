@@ -26,11 +26,11 @@ export { BLOCK_SIZE, BLOCK_CATALOG }
 
 export default class TroisDchan {
   
-  map;
+  /*map;
   camera;
   ground;
   canvas;
-  scene;
+  scene;*/
 
   constructor (canvas_, subscribeToUIAction_, sendToUI_) {
     this.canvas = canvas_;

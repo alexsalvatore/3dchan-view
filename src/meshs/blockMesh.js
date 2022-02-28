@@ -30,9 +30,6 @@ import Map from "../map";
 import { TEXTURE_BLOCK_DEFAULT } from '../textures';
 
 export default class BlockMesh {
-  type = 0;
-  isElevator = false;
-  blockDataInterface = BLOCK_CATALOG[0];
 
   /**
    *
@@ -46,6 +43,10 @@ export default class BlockMesh {
 
   constructor( subFolder_ , posx_, posy_, posz_, mapInstance_, blockType_, parentName_) {
     
+    this.type = 0;
+    this.isElevator = false;
+    this.blockDataInterface = BLOCK_CATALOG[0];
+
     this.subFolder = subFolder_;
     this.idPosition = Vector3.Zero();
     this.idPosition.x = posx_;

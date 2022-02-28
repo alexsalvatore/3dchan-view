@@ -14,13 +14,15 @@ import { getTypeFromFile } from '../utils/helpers';
 import EntityMesh from "./entityMesh";
 
 export default class FileMesh  extends EntityMesh{
-  size = 1;
-  proportionW = 1;
-  proportionH = 1;
+
 
   constructor(scene_, fileMeshData_, mapInstance_, options_) {
 
     super();
+
+    this.size = 1;
+    this.proportionW = 1;
+    this.proportionH = 1;
 
     this.fileData = fileMeshData_.fileData;
     this.fileType = fileMeshData_.fileType;

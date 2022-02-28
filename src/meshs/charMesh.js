@@ -15,17 +15,16 @@ import {TEXTURE_SPRITE} from '../textures';
 
 export default class CharMesh extends EntityMesh{
 
-    numSprites = 2;
-    currentAnimationStartAt = 0;
-    currentSprite = 0;
-    intervalTime = 325;
-
-    accessory1;
-    accessory2;
 
     constructor(mapInstance_, npcData_){
 
         super();
+
+        this.numSprites = 2;
+        this.currentAnimationStartAt = 0;
+        this.currentSprite = 0;
+        this.intervalTime = 325;
+
         this.mapInstance = mapInstance_;
 
         this.name = (npcData_ != undefined &&  npcData_.id != undefined)? npcData_.id :  "char_" + Date.now().toString();

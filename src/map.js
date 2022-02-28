@@ -17,11 +17,12 @@ import {TEXTURE_CURSOR, TEXTURE_CURSOR_ITEM} from './textures';
 
 export default class Map {
 
+  /*
   mapWidth = 16;
   mapHeight = 17;
+  */
 
-  entityDict = {};
-  isLoaded = false;
+ 
   /*
   fileMeshDict = {};
   blockMeshDict = {};*/
@@ -41,6 +42,10 @@ export default class Map {
     this.subFolder = subFolder_;
     this.mapId = mapId_;
     this.advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("myUI");
+    this.mapWidth = 16;
+    this.mapHeight = 17;
+    this.entityDict = {};
+    this.sLoaded = false;
     // this.mapService = MapDBService.getInstance(this.mapId);
     // console.log( this.mapService.db );
 
@@ -387,6 +392,7 @@ export default class Map {
     }
   }
 
+  /*
   buildMap() {
     let x = 0;
     let z = 0;
@@ -411,7 +417,7 @@ export default class Map {
     for (z = 0; z < this.mapHeight; z++) {
       new BlockMesh( this.subFolder, x, 0, z, this, 0)
     }
-  }
+  }*/
 
 
   /**

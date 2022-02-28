@@ -1,6 +1,6 @@
 {
   "name": "@asalvatore/troisdchan",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Troisdchan a javascript library to display and manage a 3Dchan's dungeon. The goal of 3Dchan is to provide a 3D abstraction layer for data's, especially images and users, in the web browser. ",
   "homepage": "https://github.com/salvatoreparis/3dchan-view",
   "main": "index.js",

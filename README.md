@@ -1,5 +1,5 @@
 # 3Dchan NPM library
-It's a javascript library to display and manage a 3Dchan's dungeon. The goal of 3Dchan is to provide a 3D abstraction layer for data's, especially images and users, in the web browser. It's important to aknowledge than this version is an alpha and than the next even minor versions will probably introduce some form of refactoring.
+It's a javascript library to display and manage a 3Dchan's dungeon. The goal of 3Dchan is to provide a 3D abstraction layer for data's, especially images and users, in the web browser. It's important to aknowledge than this version is an alpha and than the next even minor versions will probably introduce some method change.
 
 ## Installation
 ```
@@ -22,6 +22,13 @@ const troisDchan = new TroisDchan(canvas,
     (dataToSendMethod) => {
        console.log("dataToSendMethod", dataToSendMethod)
 })
+
+// Set the canvas HTML to fullscreen, with automatic resize
+troisDchan.setFullScreen()
+
+// Set the player position (x, y , z) are tile coordonates
+// and the 0 is the direction (0 == north, 1 == east, etc.)
+troisDchan.setPlayerPosition({x:4,y:0,z:-4}, 0);
 ```
 
 Add a Block
@@ -79,7 +86,7 @@ You can see more example at the [test.js](https://github.com/salvatoreparis/3dch
 
 ## Roadmap
 
-- Method to place player (that's dumb bu it doesn't exist)
+- Method to place player (that's dumb but it doesn't exist)
 - Loading and saving the map as a JSON object
 - deploy on 3Dchan.net and offering hosting to 3Dchanner
 - Work on texture, to manage characters avatar

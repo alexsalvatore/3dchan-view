@@ -9,13 +9,13 @@ import {
 } from "babylonjs";
 import * as GUI from 'babylonjs-gui';
 // import { MapDBService } from "../services/dbService";
-import { PLAYER_Y, BLOCK_SIZE, INTERACTION_TYPE_ADD_BLOCK,
+import { PLAYER_Y,
+  BLOCK_SIZE,
+  INTERACTION_TYPE_ADD_BLOCK,
   INTERACTION_TYPE_ADD_CHAR,
   INTERACTION_TYPE_DELETE_BLOCK,
   INTERACTION_TYPE_ADD_FILE,
   INTERACTION_TYPE_SCALE,
-  INTERACTION_TYPE_ROTATE,
-  INTERACTION_TYPE_CHANGE_TEXTURE,
   INTERACTION_TYPE_ACTION,
   INTERACTION_TYPE_UPDATE_OBJECT,
  } from "./constants";
@@ -40,8 +40,6 @@ export default class Map {
     this.subFolder = subFolder_;
     this.mapId = mapId_;
     this.advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("myUI");
-    this.mapWidth = 16;
-    this.mapHeight = 17;
     this.entityDict = {};
     this.sLoaded = false;
 
@@ -395,33 +393,6 @@ export default class Map {
     }
   }
 
-  /*
-  buildMap() {
-    let x = 0;
-    let z = 0;
-    //Create the walls
-    //N
-
-    for (x = 0; x < this.mapWidth; x++) {
-      new BlockMesh( this.subFolder, x, 0, z, this, 0)
-    }
-
-    z = this.mapHeight;
-    for (x = 0; x < this.mapWidth; x++) {
-      new BlockMesh( this.subFolder, x, 0, z, this, 0)
-    }
-
-    x = 0;
-    for (z = 0; z < this.mapHeight; z++) {
-      new BlockMesh( this.subFolder, x, 0, z, this, 0)
-    }
-
-    x = this.mapWidth;
-    for (z = 0; z < this.mapHeight; z++) {
-      new BlockMesh( this.subFolder, x, 0, z, this, 0)
-    }
-  }*/
-
 
   /**
    * Add a block
@@ -540,10 +511,16 @@ export default class Map {
     }
   }
 
+  /**
+   * Get the first positionof the player
+   * @returns 
+   */
   getPlayerFirstPosition() {
+    const mapWidth = 16;
+    const mapHeight = 17;
     let pos = new Vector3(); //Vector3
-    pos.x = this.mapWidth * BLOCK_SIZE * 0.5;
-    pos.z = this.mapHeight * BLOCK_SIZE * 0.5;
+    pos.x = mapWidth * BLOCK_SIZE * 0.5;
+    pos.z = mapHeight * BLOCK_SIZE * 0.5;
     return pos;
   }
 
@@ -566,8 +543,18 @@ export default class Map {
     );*/
   }
 
-  //let boundElevator; //BlockMesh
-  
+  /**
+   * Set the position of the player on the map, with the tile coordonates
+   * @param {*} cam_ the camera value
+   * @param {*} position_ ({x, y, z})
+   * @param {*} dir_ direction 0 | 1 | 2 | 3
+   */
+  setPlayerPosition(cam_, position_, dir_ = 0){
+    cam_.position.x = position_.x * BLOCK_SIZE;
+    cam_.position.y = (position_.y * BLOCK_SIZE) +PLAYER_Y;
+    cam_.position.z = position_.z * BLOCK_SIZE;
+    cam_.rotation.y = (Math.PI / 2) * dir_ ;
+  }
 
   addPlayerCollision(cam_) {
     //FreeCamera

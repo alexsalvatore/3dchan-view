@@ -44,8 +44,7 @@ let blocks = [];
 
 // Set full screen
 const canvas = document.getElementById("renderCanvas");
-canvas.width  = window.innerWidth;
-canvas.height = window.innerHeight;
+
 
 const troisDchan = new TroisDchan(canvas,
     (dataReceive) => {
@@ -54,8 +53,8 @@ const troisDchan = new TroisDchan(canvas,
     (dataToSendMethod) => {
        // console.log("dataToSendMethod", dataToSendMethod)
 })
-
-troisDchan.addFPSCamera()
+troisDchan.setFullScreen();
+troisDchan.addFPSCamera();
 
 let x = 0
 let z = 0
@@ -126,3 +125,5 @@ btnAddChar.addEventListener('click', event => {
     troisDchan.addCharacter({});
 });
 
+
+troisDchan.setPlayerPosition({x:4,y:0,z:-4}, 0);

@@ -34,6 +34,11 @@ export default class TroisDchan {
 
   constructor (canvas_, subscribeToUIAction_, sendToUI_) {
     this.canvas = canvas_;
+
+    // set important values to the canvas to work
+    this.canvas.style.touchAction = "none";
+    this.canvas.tabindex = "1";
+
     const engine = new Engine( this.canvas, true, null, false);
     this.scene = new Scene(engine);
     this.setScene("",this.scene, "MapId", subscribeToUIAction_, sendToUI_);
@@ -41,6 +46,26 @@ export default class TroisDchan {
     engine.runRenderLoop( () => {
       this.scene.render();
     });
+  }
+
+  /**
+   * Set the canvas HTML element as fulle screen
+   */
+  setFullScreen(){
+
+    // get the canvas size of the screen
+    this.canvas.style.height = "100%";
+    this.canvas.style.width = "100%";
+    document.body.style.margin = "0px";
+
+    window.addEventListener("resize", (event) => {
+      this.canvas.width  = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+    })
+  
+    this.canvas.width  = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+
   }
 
   setScene(subFolder_ , scene, mapId_, subscribeToUIAction_, sendToUI_){
@@ -129,10 +154,9 @@ export default class TroisDchan {
     if( this.camera != null) this.camera.dispose()
     this.camera = new FreeCamera(
       "freeCamera",
-      //new Vector3(0, 5, 0),
       new Vector3(
         this.map.getPlayerFirstPosition().x,
-        5,
+        PLAYER_Y,
         this.map.getPlayerFirstPosition().z
       ),
       this.scene
@@ -181,6 +205,16 @@ export default class TroisDchan {
   }
 
   /**
+   * Set the player pos on the map
+   * @param {*} position_ {x, y, z} tile coordates
+   * @param {*} dir_ direction 0 | 1 | 2 | 3
+   */
+  setPlayerPosition(position_, dir_){
+    if(this.camera == undefined || this.map == undefined) return
+    this.map.setPlayerPosition(this.camera, position_, dir_)
+  }
+
+  /**
    * Create a block on the map
    * @param {*} posx_ 
    * @param {*} posy_ 
@@ -189,6 +223,7 @@ export default class TroisDchan {
    * @param {*} parentName_ 
    */
   addBlock(position, type_, parentName_){
+    console.log(this.camera.rotation);
     return this.map.addBlock(position, type_, parentName_)
   }
 

@@ -86,7 +86,6 @@ You can see more example at the [test.js](https://github.com/salvatoreparis/3dch
 
 ## Roadmap
 
-- Method to place player (that's dumb but it doesn't exist)
 - Loading and saving the map as a JSON object
 - deploy on 3Dchan.net and offering hosting to 3Dchanner
 - Work on texture, to manage characters avatar

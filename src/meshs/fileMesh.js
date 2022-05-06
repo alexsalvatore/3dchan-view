@@ -9,14 +9,14 @@ import {
   VideoTexture,
 } from "babylonjs";
 import * as GUI from 'babylonjs-gui';
-import { BLOCK_SIZE, CANVAS_SCALE, TEXTURE_ITEM_DEFAULT, TEXTURE_ITEM_MP3, TEXTURE_ITEM_WEB } from "../constants";
+import { BLOCK_SIZE, CANVAS_SCALE, TEXTURE_ITEM_DEFAULT, TEXTURE_ITEM_MP3, TEXTURE_ITEM_WEB, CLASS_BLOCK } from "../constants";
 import { getTypeFromFile } from '../utils/helpers';
 import EntityMesh from "./entityMesh";
 
 export default class FileMesh  extends EntityMesh{
 
 
-  constructor(scene_, fileMeshData_, mapInstance_, options_) {
+  constructor(scene_, mapInstance_, fileMeshData_, options_) {
 
     super();
 
@@ -42,6 +42,9 @@ export default class FileMesh  extends EntityMesh{
 
     this.size =
       options_ != undefined && options_.size != undefined ? options_.size : 1;
+    
+    this.options = options_;
+    
     this.makeCanvas();
     //this.mapInstance.addEntityToDict(this);
     this.finishInit();
@@ -157,7 +160,7 @@ export default class FileMesh  extends EntityMesh{
   }
 
   setToWall(pos_, block_, forceMiddle){
-   
+
     if (this.isGrounded) {
       if (this.animation != null){
         this.animation.stop();
@@ -165,7 +168,6 @@ export default class FileMesh  extends EntityMesh{
       }
     }
     super.setToWall(pos_, block_, forceMiddle);
-   
   }
 
   setToGround(point_) {
@@ -264,5 +266,54 @@ export default class FileMesh  extends EntityMesh{
     this.mesh.dispose();
     // this.mapInstance.deleteEntityFromDict(this.name);
     delete this;
+  }
+
+  /**
+   * Take a data object to generate a BlockMesh
+   * @param {*} scene_
+   * @param {*} mapInstance_ 
+   * @param {*} data_ 
+   * @returns 
+   */
+   static parse(scene_, mapInstance_, data_){
+
+    const fileMesh =  new FileMesh(
+      scene_,
+      mapInstance_,
+      {
+        fileData: data_.fileData,
+        fileType: data_.fileType,
+        fileName: data_.fileName,
+        description: data_.description,
+      },
+      data_.options,
+    )
+
+    //The ground or the block position
+    data_.isGrounded? 
+    fileMesh.setToGround(data_.point) :
+    fileMesh.setToWall(data_.point, data_.block, data_.forceMiddle);
+    fileMesh.setSize(data_.size)
+
+    return fileMesh;
+  }
+
+  /**
+   * Return an object that can be save
+   * @returns {}
+   */
+  objectify(){
+    return {
+      class: CLASS_BLOCK,
+      fileData: this.fileData,
+      fileType: this.fileType,
+      fileName: this.fileName,
+      description: this.description,
+      isGrounded: this.isGrounded,
+      point: this.point,
+      block: this.block,
+      forceMiddle: this.forceMiddle,
+      size: this.size,
+    }
   }
 }

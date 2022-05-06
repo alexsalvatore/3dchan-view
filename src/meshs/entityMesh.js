@@ -36,6 +36,10 @@ export default class EntityMesh{
    */
   setToWall(pos_, dir_, block_, forceMiddle) {
 
+    this.point = pos_;
+    this.block = block_;
+    this.forceMiddle = forceMiddle;
+
     if(pos_ == undefined){
       pos_ = block_.position
     }
@@ -141,6 +145,8 @@ export default class EntityMesh{
   }
 
   setToGround(point_) {
+
+    this.point = point_;
 
     if (!this.isGrounded) {
       this.isGrounded = true;

@@ -6,7 +6,7 @@ import {
     Vector4,
   } from "babylonjs";
   import {
-    BLOCK_SIZE,
+    BLOCK_SIZE, CLASS_CHAR,
   } from "../constants";
 import EntityMesh from "./entityMesh";
 import { facePoint } from '../utils/helpers';
@@ -222,17 +222,31 @@ export default class CharMesh extends EntityMesh{
         this.pointz = point_.z;
     }
 
-    save(){
-      /*this.mapInstance.mapService.saveNPC({
-          name: this.name,
-          posx: this.pointx,
-          posy: this.pointy,
-          posz: this.pointz,
-          rotz: this.rotz,
-          accessory1: this.accessory1,
-          accessory2: this.accessory2,
-      });*/
-    }
+     /**
+   * Take a data object to generate a BlockMesh
+   * @param {*} mapInstance_ 
+   * @param {*} data_ 
+   * @returns 
+   */
+   static parse(mapInstance_, data_){
+    return new CharMesh( mapInstance_, data_);
+  }
 
+  /**
+   * Return an object that can be save
+   * @returns {}
+   */
+  objectify(){
+    return {
+      class: CLASS_CHAR,
+      name: this.name,
+      posx: this.pointx,
+      posy: this.pointy,
+      posz: this.pointz,
+      rotz: this.rotz,
+      accessory1: this.accessory1,
+      accessory2: this.accessory2,
+    };
+  }
       
 }

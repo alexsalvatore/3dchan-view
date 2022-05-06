@@ -286,11 +286,10 @@ export default class Map {
         } else {
           //shloud test if there's no block already
           blockMesh = new BlockMesh(
-            this.subFolder,
+            this,
             this.selectorMeshGround.position.x / BLOCK_SIZE,
             0,
             this.selectorMeshGround.position.z / BLOCK_SIZE,
-            this,
             interaction_.data
           );
         }
@@ -325,7 +324,7 @@ export default class Map {
         if (interaction_.data == null) return;
         let fileMeshData = interaction_.data; //FileMeshInterface
 
-        let fileMesh = new FileMesh(this.scene, fileMeshData, this);
+        let fileMesh = new FileMesh(this, this.scene, fileMeshData);
 
         let width = this.scene.getEngine().getRenderWidth();
         let height = this.scene.getEngine().getRenderHeight();
@@ -442,7 +441,7 @@ export default class Map {
    */
   addFile(fileMeshData_, options_){
     // return new FileMesh( this.scene, fileMeshData_, this, options_)
-        let fileMesh = new FileMesh(this.scene, fileMeshData_, this, options_);
+        let fileMesh = new FileMesh(this, this.scene, fileMeshData_,options_);
 
         let width = this.scene.getEngine().getRenderWidth();
         let height = this.scene.getEngine().getRenderHeight();

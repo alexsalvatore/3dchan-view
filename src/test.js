@@ -127,3 +127,5 @@ btnAddChar.addEventListener('click', event => {
 
 
 troisDchan.setPlayerPosition({x:4,y:0,z:-4}, 0);
+
+troisDchan.objectifyMap();

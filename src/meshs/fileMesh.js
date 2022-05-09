@@ -9,7 +9,7 @@ import {
   VideoTexture,
 } from "babylonjs";
 import * as GUI from 'babylonjs-gui';
-import { BLOCK_SIZE, CANVAS_SCALE, TEXTURE_ITEM_DEFAULT, TEXTURE_ITEM_MP3, TEXTURE_ITEM_WEB, CLASS_BLOCK } from "../constants";
+import { BLOCK_SIZE, CANVAS_SCALE, TEXTURE_ITEM_DEFAULT, TEXTURE_ITEM_MP3, TEXTURE_ITEM_WEB, CLASS_BLOCK, CLASS_FILE } from "../constants";
 import { getTypeFromFile } from '../utils/helpers';
 import EntityMesh from "./entityMesh";
 
@@ -304,14 +304,14 @@ export default class FileMesh  extends EntityMesh{
    */
   objectify(){
     return {
-      class: CLASS_BLOCK,
+      class: CLASS_FILE,
       fileData: this.fileData,
       fileType: this.fileType,
       fileName: this.fileName,
       description: this.description,
       isGrounded: this.isGrounded,
       point: this.point,
-      block: this.block,
+      // block: JSON.stringify(this.block),
       forceMiddle: this.forceMiddle,
       size: this.size,
     }

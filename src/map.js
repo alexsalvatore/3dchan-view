@@ -324,7 +324,7 @@ export default class Map {
         if (interaction_.data == null) return;
         let fileMeshData = interaction_.data; //FileMeshInterface
 
-        let fileMesh = new FileMesh(this, this.scene, fileMeshData);
+        let fileMesh = new FileMesh(this.scene, this , fileMeshData);
 
         let width = this.scene.getEngine().getRenderWidth();
         let height = this.scene.getEngine().getRenderHeight();
@@ -425,7 +425,7 @@ export default class Map {
       return parentBlock.addTopBlock(type_)
     }
 
-    const block = new BlockMesh( this.subFolder, position_.x, position_.y,  position_.z, this, type_, parentName_);
+    const block = new BlockMesh(this, position_.x, position_.y,  position_.z, type_, parentName_);
     this.selectItem(block.name)
      // We keep the first block to clone it
     if(!this.firstBlock) this.firstBlock = block;
@@ -441,7 +441,7 @@ export default class Map {
    */
   addFile(fileMeshData_, options_){
     // return new FileMesh( this.scene, fileMeshData_, this, options_)
-        let fileMesh = new FileMesh(this, this.scene, fileMeshData_,options_);
+        let fileMesh = new FileMesh(this.scene, this,fileMeshData_,options_);
 
         let width = this.scene.getEngine().getRenderWidth();
         let height = this.scene.getEngine().getRenderHeight();
@@ -807,4 +807,19 @@ export default class Map {
 
     return newPos;
   }
+
+  /**
+   * Return a list of all the map object as JSON
+   * @returns mapObject[]
+   */
+  objectifyMap(){
+    const mapObject = [];
+    Object.values(this.entityDict).forEach(entity => {
+      mapObject.push(entity.objectify())
+    });
+
+    console.log(JSON.stringify(mapObject));
+    return mapObject;
+  }
+
 }

@@ -223,7 +223,6 @@ export default class TroisDchan {
    * @param {*} parentName_ 
    */
   addBlock(position, type_, parentName_){
-    console.log(this.camera.rotation);
     return this.map.addBlock(position, type_, parentName_)
   }
 
@@ -248,6 +247,14 @@ export default class TroisDchan {
 
   deleteSelection(){
     this.map.deleteSelection()
+  }
+
+ /**
+   * Return a list of all the map object as JSON
+   * @returns mapObject[]
+   */
+  objectifyMap(){
+    return this.map.objectifyMap()
   }
 
   /*

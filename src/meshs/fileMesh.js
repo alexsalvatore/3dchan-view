@@ -313,9 +313,9 @@ export default class FileMesh  extends EntityMesh{
       point: this.point,
       block: {
        position:{
-        x:  this.block.position.x,
-        y:  this.block.position.y,
-        z:  this.block.position.z,
+        x:  this.block?.position?.x,
+        y:  this.block?.position?.y,
+        z:  this.block?.position?.z,
        }
       },
       forceMiddle: this.forceMiddle,

@@ -37,15 +37,14 @@ export default class EntityMesh{
   setToWall(pos_, dir_, blockPosition_, forceMiddle) {
 
     this.point = pos_;
-    this.blockPosition = blockPosition_; // Memorize the blockPos
     this.forceMiddle = forceMiddle;
 
     if(pos_ == undefined){
-      pos_ = blockPosition_
+      pos_ = blockPosition_.position
     }
 
     // set block position in memory
-    let blockPos_ = blockPosition_
+    let blockPos_ = blockPosition_.position
 
     //Block size after scaling
     let blockRealSize = BLOCK_SIZE;

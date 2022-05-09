@@ -159,7 +159,7 @@ export default class FileMesh  extends EntityMesh{
 
   }
 
-  setToWall(pos_, blockPosition_, forceMiddle){
+  setToWall(pos_, dir_, blockPosition_, forceMiddle){
 
     if (this.isGrounded) {
       if (this.animation != null){
@@ -167,8 +167,7 @@ export default class FileMesh  extends EntityMesh{
         this.animation = null;
       }
     }
-    console.log("blockPosition_", blockPosition_);
-    super.setToWall(pos_, blockPosition_, forceMiddle);
+    super.setToWall(pos_, dir_, blockPosition_, forceMiddle);
   }
 
   setToGround(point_) {
@@ -312,7 +311,13 @@ export default class FileMesh  extends EntityMesh{
       description: this.description,
       isGrounded: this.isGrounded,
       point: this.point,
-      blockPosition: this.blockPosition,
+      block: {
+       position:{
+        x:  this.block.position.x,
+        y:  this.block.position.y,
+        z:  this.block.position.z,
+       }
+      },
       forceMiddle: this.forceMiddle,
       size: this.size,
     }

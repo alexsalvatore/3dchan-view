@@ -89,7 +89,7 @@ for(let i = 0; i < images.length; i++){
         fileType:"image/",
         fileName:"some file"
     });
-    
+    console.log("block.position", block.position);
     fileMesh2.setToWall(block.position, dir, block);
     fileMesh2.setSize( block.position.y / BLOCK_SIZE )
 }
@@ -128,4 +128,4 @@ btnAddChar.addEventListener('click', event => {
 
 troisDchan.setPlayerPosition({x:4,y:0,z:-4}, 0);
 
-troisDchan.objectifyMap();
+// troisDchan.objectifyMap();

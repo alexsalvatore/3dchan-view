@@ -167,7 +167,7 @@ export default class FileMesh  extends EntityMesh{
         this.animation = null;
       }
     }
-
+    console.log("blockPosition_", blockPosition_);
     super.setToWall(pos_, blockPosition_, forceMiddle);
   }
 

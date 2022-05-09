@@ -37,7 +37,7 @@ export default class EntityMesh{
   setToWall(pos_, dir_, blockPosition_, forceMiddle) {
 
     this.point = pos_;
-    // this.block = block_.position;
+    this.blockPosition = blockPosition_; // Memorize the blockPos
     this.forceMiddle = forceMiddle;
 
     if(pos_ == undefined){

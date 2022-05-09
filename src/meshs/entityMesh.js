@@ -34,18 +34,18 @@ export default class EntityMesh{
    * @param {Vector3} block_ wall block position
    * @param  {boolean} forceMiddle force the picture to be at the middle of the wall
    */
-  setToWall(pos_, dir_, block_, forceMiddle) {
+  setToWall(pos_, dir_, blockPosition_, forceMiddle) {
 
     this.point = pos_;
-    this.block = block_;
+    // this.block = block_.position;
     this.forceMiddle = forceMiddle;
 
     if(pos_ == undefined){
-      pos_ = block_.position
+      pos_ = blockPosition_
     }
 
     // set block position in memory
-    let blockPos_ = block_.position
+    let blockPos_ = blockPosition_
 
     //Block size after scaling
     let blockRealSize = BLOCK_SIZE;

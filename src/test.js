@@ -3,16 +3,16 @@ import TroisDchan, { BLOCK_SIZE } from './index';
 const WALL_TYPE = 1;
 
 const images = [
-    "https://pbs.twimg.com/media/FKXXfqZXoAI8hnt?format=jpg&name=small",
-    "https://pbs.twimg.com/media/FJb6dBqXoAEjGl1?format=jpg&name=small",
-    "https://pbs.twimg.com/media/E1HB3zEWYAQiufM?format=jpg&name=small",
+    "https://pbs.twimg.com/media/FSPo5ONaUAAOpYA?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FSPowdbVEAMFbwo?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FSHLBVgXIAAWny9?format=jpg&name=medium",
     "https://pbs.twimg.com/media/Cepl5UwWAAAU5av?format=jpg&name=small",
-    "https://pbs.twimg.com/media/EuCVKgZWQAMuW-Q?format=jpg&name=medium",
-    "https://pbs.twimg.com/media/FGoIs-yUUAIvkGC?format=jpg&name=medium",
-    "https://pbs.twimg.com/media/FGhWsmwXMAoC0sf?format=jpg&name=medium",
-    "https://pbs.twimg.com/media/FGfYiJoVgAIaphP?format=jpg&name=small",
-    "https://pbs.twimg.com/media/FGfQGtqXwAQcfFW?format=jpg&name=small",
-    "https://pbs.twimg.com/media/FGPMRl2UUAAyATC?format=jpg&name=900x900",
+    "https://pbs.twimg.com/media/FSGfn7xXMAAl030?format=jpg&name=900x900",
+    "https://pbs.twimg.com/media/FBbwRpgXMAMtCX1?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FSE6mTUakAE4zY5?format=jpg&name=900x900",
+    "https://pbs.twimg.com/media/FR67XNGWQAA0dYk?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FRzGATBWQAEyrS_?format=png&name=900x900",
+    "https://pbs.twimg.com/media/FRoPXKQWQAIMd4X?format=jpg&name=900x900",
     "https://pbs.twimg.com/media/EKkQZmPVAAAzNEW?format=jpg&name=900x900",
     "https://pbs.twimg.com/media/FDiL_vSWQAEWPci?format=jpg&name=medium",
     "https://pbs.twimg.com/media/FBbZVF5X0AIP9yk?format=jpg&name=medium",
@@ -74,7 +74,7 @@ for (x; x < dungonWidth; x++) {
 }
 
 let fileMesh1 = troisDchan.addFile({
-    fileData: "https://pbs.twimg.com/media/Dl8jZ-pVAAA8P8f?format=jpg&name=900x900",
+    fileData: "https://pbs.twimg.com/media/FQ5KDpSX0AMVutW?format=png&name=small",
     fileType:"image/",
     fileName:"some file"
 });

@@ -229,6 +229,7 @@ export default class CharMesh extends EntityMesh{
    * @returns 
    */
    static parse(mapInstance_, data_){
+     console.log(data_);
     return new CharMesh( mapInstance_, data_);
   }
 
@@ -240,10 +241,11 @@ export default class CharMesh extends EntityMesh{
     return {
       class: CLASS_CHAR,
       name: this.name,
-      posx: this.pointx,
-      posy: this.pointy,
-      posz: this.pointz,
-      rotz: this.rotz,
+      position:{
+        x:this.pointx,
+        y:this.pointy,
+        z:this.pointz,
+      },
       accessory1: this.accessory1,
       accessory2: this.accessory2,
     };

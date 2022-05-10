@@ -292,7 +292,7 @@ export default class FileMesh  extends EntityMesh{
     //The ground or the block position
     data_.isGrounded? 
     fileMesh.setToGround(data_.point) :
-    fileMesh.setToWall(data_.point, data_.blockPosition, data_.forceMiddle);
+    fileMesh.setToWall(data_.point,null, data_.block, data_.forceMiddle);
     fileMesh.setSize(data_.size)
 
     return fileMesh;

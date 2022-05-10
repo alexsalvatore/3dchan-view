@@ -18,6 +18,9 @@ import { PLAYER_Y,
   INTERACTION_TYPE_SCALE,
   INTERACTION_TYPE_ACTION,
   INTERACTION_TYPE_UPDATE_OBJECT,
+  CLASS_BLOCK,
+  CLASS_CHAR,
+  CLASS_FILE,
  } from "./constants";
 import BlockMesh from "./meshs/blockMesh";
 import FileMesh from "./meshs/fileMesh";
@@ -820,6 +823,26 @@ export default class Map {
 
     console.log(JSON.stringify(mapObject));
     return mapObject;
+  }
+
+  /**
+   * Parse the whole map file
+   * @param {*} map 
+   */
+  parseMap(mapData_){
+    mapData_.forEach( obj =>{
+      switch(obj.class){
+        case CLASS_BLOCK:
+          BlockMesh.parse(this, obj)
+          break;
+        case CLASS_CHAR:
+          CharMesh.parse(this, obj)
+          break;
+        case CLASS_FILE:
+          FileMesh.parse(this.scene, this, obj)
+          break;
+      }
+    })
   }
 
 }

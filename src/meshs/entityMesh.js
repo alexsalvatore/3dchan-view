@@ -38,6 +38,7 @@ export default class EntityMesh{
 
     this.point = pos_;
     this.forceMiddle = forceMiddle;
+    this.block = blockPosition_;
 
     if(pos_ == undefined){
       pos_ = blockPosition_.position

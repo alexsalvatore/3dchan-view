@@ -12,7 +12,7 @@ import {
   ActionManager,
   ExecuteCodeAction,
 } from "babylonjs";
-import { PLAYER_Y , BLOCK_SIZE, BLOCK_CATALOG } from './constants'
+import { PLAYER_Y , BLOCK_SIZE, BLOCK_CATALOG, CLASS_BLOCK, CLASS_CHAR, CLASS_FILE } from './constants'
 import { TEXTURE_GOUND_DEFAULT } from './textures';
 import Map from "./map";
 
@@ -255,6 +255,10 @@ export default class TroisDchan {
    */
   objectifyMap(){
     return this.map.objectifyMap()
+  }
+
+  parseMap(mapData_){
+    this.map.parseMap(mapData_)
   }
 
   /*

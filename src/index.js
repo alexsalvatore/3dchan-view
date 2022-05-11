@@ -12,7 +12,7 @@ import {
   ActionManager,
   ExecuteCodeAction,
 } from "babylonjs";
-import { PLAYER_Y , BLOCK_SIZE, BLOCK_CATALOG } from './constants'
+import { PLAYER_Y , BLOCK_SIZE, BLOCK_CATALOG, CLASS_BLOCK, CLASS_CHAR, CLASS_FILE } from './constants'
 import { TEXTURE_GOUND_DEFAULT } from './textures';
 import Map from "./map";
 
@@ -223,7 +223,6 @@ export default class TroisDchan {
    * @param {*} parentName_ 
    */
   addBlock(position, type_, parentName_){
-    console.log(this.camera.rotation);
     return this.map.addBlock(position, type_, parentName_)
   }
 
@@ -250,125 +249,15 @@ export default class TroisDchan {
     this.map.deleteSelection()
   }
 
-  /*
-  addNewInputToCamera( camera_, canvas ){
+ /**
+   * Return a list of all the map object as JSON
+   * @returns mapObject[]
+   */
+  objectifyMap(){
+    return this.map.objectifyMap()
+  }
 
-  //  New Input Management for Camera
-    
-    //First remove the default management.
-    camera_.inputs.removeByType("FreeCameraKeyboardMoveInput");
-    //camera_.inputs.removeByType("FreeCameraMouseInput");
-    
-    //Add attachment controls
-    //Key Input Manager To Use Keys to Move Forward and BackWard and Look to the Left or Right
-    var FreeCameraKeyboardWalkInput = function () {
-      this._keys = [];
-      this.keysUp = [38];
-      this.keysDown = [40];
-      this.keysLeft = [37];
-      this.keysRight = [39];
-    }
-    
-    //Add attachment controls
-    FreeCameraKeyboardWalkInput.prototype.attachControl = function (noPreventDefault) {
-            var _this = this;
-            var engine = this.camera.getEngine();
-            var element = engine.getInputElement();
-            if (!this._onKeyDown) {
-                element.tabIndex = 1;
-                this._onKeyDown = function (evt) {                 
-                    if (_this.keysUp.indexOf(evt.keyCode) !== -1 ||
-                        _this.keysDown.indexOf(evt.keyCode) !== -1 ||
-                        _this.keysLeft.indexOf(evt.keyCode) !== -1 ||
-                        _this.keysRight.indexOf(evt.keyCode) !== -1) {
-                        var index = _this._keys.indexOf(evt.keyCode);
-                        if (index === -1) {
-                            _this._keys.push(evt.keyCode);
-                        }
-                        if (!noPreventDefault) {
-                            evt.preventDefault();
-                        }
-                    }
-                };
-                this._onKeyUp = function (evt) {
-                    if (_this.keysUp.indexOf(evt.keyCode) !== -1 ||
-                        _this.keysDown.indexOf(evt.keyCode) !== -1 ||
-                        _this.keysLeft.indexOf(evt.keyCode) !== -1 ||
-                        _this.keysRight.indexOf(evt.keyCode) !== -1) {
-                        var index = _this._keys.indexOf(evt.keyCode);
-                        if (index >= 0) {
-                            _this._keys.splice(index, 1);
-                        }
-                        if (!noPreventDefault) {
-                            evt.preventDefault();
-                        }
-                    }
-                };
-                element.addEventListener("keydown", this._onKeyDown, false);
-                element.addEventListener("keyup", this._onKeyUp, false);
-            }
-        };
-
-
-          //Add detachment controls
-          FreeCameraKeyboardWalkInput.prototype.detachControl = function () {
-            var engine = this.camera.getEngine();
-            var element = engine.getInputElement();
-            if (this._onKeyDown) {
-                element.removeEventListener("keydown", this._onKeyDown);
-                element.removeEventListener("keyup", this._onKeyUp);
-                Tools.UnregisterTopRootEvents([
-                    { name: "blur", handler: this._onLostFocus }
-                ]);
-                this._keys = [];
-                this._onKeyDown = null;
-                this._onKeyUp = null;
-            }
-        };
-
-          //Keys movement control by checking inputs
-          FreeCameraKeyboardWalkInput.prototype.checkInputs = function () {
-            if (this._onKeyDown) {
-              var camera = this.camera;
-              // Keyboard
-              for (var index = 0; index < this._keys.length; index++) {
-                var keyCode = this._keys[index];
-                if (this.keysLeft.indexOf(keyCode) !== -1) {
-                  camera.cameraRotation.y -= this.sensibility;
-                } else if (this.keysRight.indexOf(keyCode) !== -1) {
-                  camera.cameraRotation.y += this.sensibility;
-                } else if (this.keysDown.indexOf(keyCode) !== -1) {
-                  camera.position.addInPlace(camera.getDirection(Axis.Z).scale(-this.speed));
-                  // var posX = Math.sin(camera.rotation.y);
-                  // var posZ = Math.cos(camera.rotation.y);
-                  // camera.position.x -= posX * this.speed;
-                  // camera.position.z -= posZ * this.speed;
-                } else if (this.keysUp.indexOf(keyCode) !== -1) {
-                  camera.position.addInPlace(camera.getDirection(Axis.Z).scale(this.speed));
-                 // var posX = Math.sin(camera.rotation.y);
-                  // var posZ = Math.cos(camera.rotation.y);
-                 //  camera.position.x += posX * this.speed;
-                  // camera.position.z += posZ * this.speed;
-                }
-              }
-            }
-          };
-
-          //Add the onLostFocus function
-          FreeCameraKeyboardWalkInput.prototype._onLostFocus = function (e) {
-              this._keys = [];
-          };
-          
-          //Add the two required functions for the control Name
-          FreeCameraKeyboardWalkInput.prototype.getClassName = function () {
-              return "FreeCameraKeyboardWalkInput";
-          };
-
-          FreeCameraKeyboardWalkInput.prototype.getSimpleName = function () {
-              return "keyboard";
-          };
-      
-      //Add the new keys input manager to the camera.
-      camera.inputs.add(new FreeCameraKeyboardWalkInput());
-  }*/
+  parseMap(mapData_){
+    this.map.parseMap(mapData_)
+  }
 }

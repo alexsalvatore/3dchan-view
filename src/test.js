@@ -3,32 +3,32 @@ import TroisDchan, { BLOCK_SIZE } from './index';
 const WALL_TYPE = 1;
 
 const images = [
-    "https://pbs.twimg.com/media/FKXXfqZXoAI8hnt?format=jpg&name=small",
-    "https://pbs.twimg.com/media/FJb6dBqXoAEjGl1?format=jpg&name=small",
-    "https://pbs.twimg.com/media/E1HB3zEWYAQiufM?format=jpg&name=small",
+    "https://pbs.twimg.com/media/FSPo5ONaUAAOpYA?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FSPowdbVEAMFbwo?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FSHLBVgXIAAWny9?format=jpg&name=medium",
     "https://pbs.twimg.com/media/Cepl5UwWAAAU5av?format=jpg&name=small",
-    "https://pbs.twimg.com/media/EuCVKgZWQAMuW-Q?format=jpg&name=medium",
-    "https://pbs.twimg.com/media/FGoIs-yUUAIvkGC?format=jpg&name=medium",
-    "https://pbs.twimg.com/media/FGhWsmwXMAoC0sf?format=jpg&name=medium",
-    "https://pbs.twimg.com/media/FGfYiJoVgAIaphP?format=jpg&name=small",
-    "https://pbs.twimg.com/media/FGfQGtqXwAQcfFW?format=jpg&name=small",
-    "https://pbs.twimg.com/media/FGPMRl2UUAAyATC?format=jpg&name=900x900",
+    "https://pbs.twimg.com/media/FSGfn7xXMAAl030?format=jpg&name=900x900",
+    "https://pbs.twimg.com/media/FBbwRpgXMAMtCX1?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FSE6mTUakAE4zY5?format=jpg&name=900x900",
+    "https://pbs.twimg.com/media/FR67XNGWQAA0dYk?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FRzGATBWQAEyrS_?format=png&name=900x900",
+    "https://pbs.twimg.com/media/FRoPXKQWQAIMd4X?format=jpg&name=900x900",
     "https://pbs.twimg.com/media/EKkQZmPVAAAzNEW?format=jpg&name=900x900",
     "https://pbs.twimg.com/media/FDiL_vSWQAEWPci?format=jpg&name=medium",
     "https://pbs.twimg.com/media/FBbZVF5X0AIP9yk?format=jpg&name=medium",
 ]
 
 const dungeonMap = [
-    [1,1,0,1,0,1,1,1,1,1,1,1,1,1,],
-    [1,0,1,0,0,0,0,0,0,0,0,0,0,1,],
-    [1,0,0,0,0,0,0,0,0,0,5,5,0,1,],
-    [1,0,0,2,2,2,3,3,3,0,5,9,0,1,],
-    [0,0,1,1,2,2,3,3,3,0,5,5,0,1,],
-    [1,0,0,2,2,2,3,9,3,0,5,5,0,1,],
-    [0,0,0,2,2,2,2,0,1,1,1,1,1,1,],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
-    [1,1,1,1,9,1,1,1,1,1,1,1,1,1,],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1,],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,],
 ]
 
 const createPile = (x,z,n) => {
@@ -45,7 +45,6 @@ let blocks = [];
 // Set full screen
 const canvas = document.getElementById("renderCanvas");
 
-
 const troisDchan = new TroisDchan(canvas,
     (dataReceive) => {
         // console.log("dataReceive", dataReceive)
@@ -53,6 +52,8 @@ const troisDchan = new TroisDchan(canvas,
     (dataToSendMethod) => {
        // console.log("dataToSendMethod", dataToSendMethod)
 })
+
+
 troisDchan.setFullScreen();
 troisDchan.addFPSCamera();
 
@@ -74,7 +75,7 @@ for (x; x < dungonWidth; x++) {
 }
 
 let fileMesh1 = troisDchan.addFile({
-    fileData: "https://pbs.twimg.com/media/Dl8jZ-pVAAA8P8f?format=jpg&name=900x900",
+    fileData: "https://pbs.twimg.com/media/FQ5KDpSX0AMVutW?format=png&name=small",
     fileType:"image/",
     fileName:"some file"
 });
@@ -89,9 +90,9 @@ for(let i = 0; i < images.length; i++){
         fileType:"image/",
         fileName:"some file"
     });
-    
-    fileMesh2.setToWall(block.position, dir, block);
-    fileMesh2.setSize( block.position.y / BLOCK_SIZE )
+
+    fileMesh2.setToWall(null, dir, block);
+    //fileMesh2.setSize( block.position.y / BLOCK_SIZE )
 }
 
 // Create controls
@@ -125,5 +126,13 @@ btnAddChar.addEventListener('click', event => {
     troisDchan.addCharacter({});
 });
 
+/*
+const mapSave = '';
+troisDchan.parseMap(
+    JSON.parse(mapSave)
+)
+console.log(troisDchan.objectifyMap());
+*/
 
-troisDchan.setPlayerPosition({x:4,y:0,z:-4}, 0);
+troisDchan.setPlayerPosition({x:4,y:0,z:4}, 0);
+console.log(troisDchan.objectifyMap());

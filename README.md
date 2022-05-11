@@ -82,11 +82,19 @@ Add a characters at a position
     troisDchan.addCharacter({ position: {x: x*BLOCK_SIZE , y:0 , z: z*BLOCK_SIZE}})
 ```
 
+Import and export Map as a JSON object
+```
+troisDchan.parseMap(
+    JSON.parse(mapSave)
+)
+console.log(troisDchan.objectifyMap());
+```
+
 You can see more example at the [test.js](https://github.com/salvatoreparis/3dchan-view/blob/main/src/test.js) file at the root of the project
 
 ## Roadmap
 
 - Loading and saving the map as a JSON object
+- Signing levels with a wallet
 - deploy on 3Dchan.net and offering hosting to 3Dchanner
 - Work on texture, to manage characters avatar
-- Mobile control support (it's a real pain, I will probably need financial support for this one)

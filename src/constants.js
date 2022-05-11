@@ -6,6 +6,10 @@ export const BLOCK_TYPE_WALL = "block_type_wall";
 export const BLOCK_TYPE_DOOR = "block_type_door";
 export const BLOCK_TYPE_ELEVATOR = "block_type_elevator";
 
+export const CLASS_BLOCK = "block";
+export const CLASS_CHAR = "character";
+export const CLASS_FILE = "file";
+
 export const BLOCK_CATALOG = [
   { id:1, name: "Concrete", type: BLOCK_TYPE_WALL, u: 0, v: 0 },
   { id:2, name: "Brick", type: BLOCK_TYPE_WALL, u: 2, v: 0 },

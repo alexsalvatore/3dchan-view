@@ -18,6 +18,9 @@ import { PLAYER_Y,
   INTERACTION_TYPE_SCALE,
   INTERACTION_TYPE_ACTION,
   INTERACTION_TYPE_UPDATE_OBJECT,
+  CLASS_BLOCK,
+  CLASS_CHAR,
+  CLASS_FILE,
  } from "./constants";
 import BlockMesh from "./meshs/blockMesh";
 import FileMesh from "./meshs/fileMesh";
@@ -47,86 +50,6 @@ export default class Map {
     this.UPDATE_FRONT_BLOCK = 30;
     this.playerLegacyTimer = 0;
     this.playerLegacyFreq = 550;
-    // this.mapService = MapDBService.getInstance(this.mapId);
-    // console.log( this.mapService.db );
-
-    //Construct the scene
-    // this.buildMap();
-    /*this.mapService.getAllMap(
-      (docs_) => {
-        if (docs_.rows.length == 0) {
-          this.buildMap();
-        } else {
-          docs_.rows.forEach((doc_) => {
-            //console.log(doc_.id);
-
-            if (doc_.id.indexOf("wall") >= 0) {
-              let block = doc_.doc;
-                new BlockMesh(
-                  this.subFolder,
-                  block.posx,
-                  block.posy,
-                  block.posz,
-                  this,
-                  block.type,
-                  block.parentName != undefined ? block.parentName : null
-                )
-            } else if (doc_.id.indexOf("canvas") >= 0 && doc_.doc.posx != 81) {
-              let fileMeshData = doc_.doc;
-              //Conversion for old DB version
-              
-              if(fileMeshData.fileType == undefined) {
-                let fileMeshDataTmp = {...fileMeshData};
-                fileMeshDataTmp.fileData = fileMeshData.data;
-                fileMeshDataTmp.fileType = "image/png";
-                fileMeshDataTmp.fileName = "nothing_";
-                fileMeshData = fileMeshDataTmp;
-              }
-              let fileMesh = new FileMesh(
-                this.scene,
-                fileMeshData,
-                this,
-                fileMeshData
-              );
-              if (fileMeshData.isGrounded === true) {
-                fileMesh.setToGround({
-                  x: fileMeshData.groundx,
-                  y: fileMeshData.groundy,
-                  z: fileMeshData.groundz,
-                });
-              } else {
-                fileMesh.setToWall(
-                  {
-                    x: fileMeshData.posx,
-                    y: fileMeshData.posy,
-                    z: fileMeshData.posz,
-                  },
-                  {
-                    x: fileMeshData.blockx,
-                    y: fileMeshData.blocky,
-                    z: fileMeshData.blockz,
-                  },
-                  false,
-                  false
-                );
-                fileMesh.mesh.position.y = fileMeshData.posy;
-              }
-            } else if(doc_.id.indexOf("char_") >= 0){
-              let npc = doc_.doc;
-              npc.id = doc_.id;
-              new CharMesh(this, npc);
-            }
-          });
-
-          this.isLoaded = true;
-        }
-      },
-      (err_) => {
-        console.error("BUILDMAP", err_);
-        //nothing, build the map
-        this.buildMap();
-      }
-    );*/
 
     //Add wireframe texture
     let matGhost = new StandardMaterial("matGhost_text", this.scene);
@@ -286,11 +209,10 @@ export default class Map {
         } else {
           //shloud test if there's no block already
           blockMesh = new BlockMesh(
-            this.subFolder,
+            this,
             this.selectorMeshGround.position.x / BLOCK_SIZE,
             0,
             this.selectorMeshGround.position.z / BLOCK_SIZE,
-            this,
             interaction_.data
           );
         }
@@ -325,7 +247,7 @@ export default class Map {
         if (interaction_.data == null) return;
         let fileMeshData = interaction_.data; //FileMeshInterface
 
-        let fileMesh = new FileMesh(this.scene, fileMeshData, this);
+        let fileMesh = new FileMesh(this.scene, this , fileMeshData);
 
         let width = this.scene.getEngine().getRenderWidth();
         let height = this.scene.getEngine().getRenderHeight();
@@ -426,7 +348,7 @@ export default class Map {
       return parentBlock.addTopBlock(type_)
     }
 
-    const block = new BlockMesh( this.subFolder, position_.x, position_.y,  position_.z, this, type_, parentName_);
+    const block = new BlockMesh(this, position_.x, position_.y,  position_.z, type_, parentName_);
     this.selectItem(block.name)
      // We keep the first block to clone it
     if(!this.firstBlock) this.firstBlock = block;
@@ -442,7 +364,7 @@ export default class Map {
    */
   addFile(fileMeshData_, options_){
     // return new FileMesh( this.scene, fileMeshData_, this, options_)
-        let fileMesh = new FileMesh(this.scene, fileMeshData_, this, options_);
+        let fileMesh = new FileMesh(this.scene, this,fileMeshData_,options_);
 
         let width = this.scene.getEngine().getRenderWidth();
         let height = this.scene.getEngine().getRenderHeight();
@@ -808,4 +730,39 @@ export default class Map {
 
     return newPos;
   }
+
+  /**
+   * Return a list of all the map object as JSON
+   * @returns mapObject[]
+   */
+  objectifyMap(){
+    const mapObject = [];
+    Object.values(this.entityDict).forEach(entity => {
+      mapObject.push(entity.objectify())
+    });
+
+    console.log(JSON.stringify(mapObject));
+    return mapObject;
+  }
+
+  /**
+   * Parse the whole map file
+   * @param {*} map 
+   */
+  parseMap(mapData_){
+    mapData_.forEach( obj =>{
+      switch(obj.class){
+        case CLASS_BLOCK:
+          BlockMesh.parse(this, obj)
+          break;
+        case CLASS_CHAR:
+          CharMesh.parse(this, obj)
+          break;
+        case CLASS_FILE:
+          FileMesh.parse(this.scene, this, obj)
+          break;
+      }
+    })
+  }
+
 }

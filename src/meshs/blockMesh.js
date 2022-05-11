@@ -18,8 +18,7 @@ import {
 import {
   BLOCK_SIZE,
   BLOCK_CATALOG,
-  // BLOCK_TEXTURES,
-  // TEXTURE_FILE_DEFAULT,
+  CLASS_BLOCK,
   BLOCK_TYPE_WALL,
   BLOCK_TYPE_DOOR,
   BLOCK_TYPE_ELEVATOR,
@@ -41,14 +40,13 @@ export default class BlockMesh {
    * @param {string} parentName_ The name of the parent
    */
 
-  constructor( subFolder_ , posx_, posy_, posz_, mapInstance_, blockType_, parentName_) {
+  constructor( mapInstance_, posx_, posy_, posz_,blockType_, parentName_) {
     
     this.type = 0;
     this.isElevator = false;
     this.blockDataInterface = BLOCK_CATALOG[0];
     this.doorIsOpen = false;
 
-    this.subFolder = subFolder_;
     this.idPosition = Vector3.Zero();
     this.idPosition.x = posx_;
     this.idPosition.y = posy_;
@@ -244,11 +242,10 @@ export default class BlockMesh {
 
     let lastBlock = this.getTopBlock(); //BlockMesh
     let newBlock = new BlockMesh(
-      this.subFolder,
+      this.mapInstance,
       lastBlock.idPosition.x,
       lastBlock.idPosition.y + 1,
       lastBlock.idPosition.z,
-      this.mapInstance,
       idBlock_,
       this.name
     );
@@ -378,5 +375,37 @@ export default class BlockMesh {
       false,
       1 / (amplitudeY_ + 1)
     );
+  }
+
+  /**
+   * Take a data object to generate a BlockMesh
+   * @param {*} mapInstance_ 
+   * @param {*} data_ 
+   * @returns 
+   */
+  static parse(mapInstance_, data_){
+    return new BlockMesh(
+      mapInstance_,
+      data_.x,
+      data_.y,
+      data_.z,
+      data_.blockType,
+      data_.parentName
+    )
+  }
+
+  /**
+   * Return an object that can be save
+   * @returns {}
+   */
+  objectify(){
+    return {
+      class: CLASS_BLOCK,
+      x: this.idPosition.x,
+      y: this.idPosition.y,
+      z: this.idPosition.z,
+      type: this.type,
+      parentName: this.parentName,
+    }
   }
 }

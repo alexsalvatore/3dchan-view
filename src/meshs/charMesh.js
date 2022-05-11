@@ -192,6 +192,10 @@ export default class CharMesh extends EntityMesh{
         }
 
     }
+
+    save(){
+      
+    }
     
     updateAndSave( data_ ){
       // save in the DB

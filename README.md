@@ -1,6 +1,11 @@
 # 3Dchan NPM library
 It's a javascript library to display and manage a 3Dchan's dungeon. The goal of 3Dchan is to provide a 3D abstraction layer for data's, especially images and users, in the web browser. It's important to aknowledge than this version is an alpha and than the next even minor versions will probably introduce some method change.
 
+Can send me some ETH here if you want me to maintain the lib:
+_0xDe83AE3bF150c7f23A0B4549fD8307592dbD4a79_
+
+![3Dchan](https://github.com/salvatoreparis/3dchan-view/3dchan.gif?raw=true)
+
 ## Installation
 ```
 npm i @asalvatore/troisdchan

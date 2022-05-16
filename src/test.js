@@ -3,19 +3,9 @@ import TroisDchan, { BLOCK_SIZE } from './index';
 const WALL_TYPE = 1;
 
 const images = [
-    "https://pbs.twimg.com/media/FSPo5ONaUAAOpYA?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FSdp2VoVsAU9Ykz?format=jpg&name=small",
     "https://pbs.twimg.com/media/FSPowdbVEAMFbwo?format=jpg&name=medium",
-    "https://pbs.twimg.com/media/FSHLBVgXIAAWny9?format=jpg&name=medium",
-    "https://pbs.twimg.com/media/Cepl5UwWAAAU5av?format=jpg&name=small",
-    "https://pbs.twimg.com/media/FSGfn7xXMAAl030?format=jpg&name=900x900",
-    "https://pbs.twimg.com/media/FBbwRpgXMAMtCX1?format=jpg&name=medium",
-    "https://pbs.twimg.com/media/FSE6mTUakAE4zY5?format=jpg&name=900x900",
-    "https://pbs.twimg.com/media/FR67XNGWQAA0dYk?format=jpg&name=medium",
-    "https://pbs.twimg.com/media/FRzGATBWQAEyrS_?format=png&name=900x900",
-    "https://pbs.twimg.com/media/FRoPXKQWQAIMd4X?format=jpg&name=900x900",
-    "https://pbs.twimg.com/media/EKkQZmPVAAAzNEW?format=jpg&name=900x900",
-    "https://pbs.twimg.com/media/FDiL_vSWQAEWPci?format=jpg&name=medium",
-    "https://pbs.twimg.com/media/FBbZVF5X0AIP9yk?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/FSGIinWWYAEn6_G?format=jpg&name=medium",
 ]
 
 const dungeonMap = [
@@ -75,7 +65,7 @@ for (x; x < dungonWidth; x++) {
 }
 
 let fileMesh1 = troisDchan.addFile({
-    fileData: "https://pbs.twimg.com/media/FQ5KDpSX0AMVutW?format=png&name=small",
+    fileData: "https://pbs.twimg.com/media/FSfFsyvXMAMU-BP?format=jpg&name=medium",
     fileType:"image/",
     fileName:"some file"
 });
@@ -92,7 +82,6 @@ for(let i = 0; i < images.length; i++){
     });
 
     fileMesh2.setToWall(null, dir, block);
-    //fileMesh2.setSize( block.position.y / BLOCK_SIZE )
 }
 
 // Create controls
